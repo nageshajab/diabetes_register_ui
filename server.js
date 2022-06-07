@@ -1,10 +1,10 @@
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var express = require('express');
-const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const common = require('./common');
-var logger = require('./logger').logger;
+//var logger = require('./logger').logger;
+const bodyParser = require('body-parser')
 
 const {
     type
@@ -17,6 +17,7 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }));
+//define body parser to read request body
 //define body parser to read request body
 app.use(bodyParser.urlencoded({
     extended: false
@@ -34,6 +35,7 @@ dotenv.config();
 require('./routes/authenticationRoutes')(app);
 require('./routes/diabeticRoutes')(app);
 
+
 //about page
 app.get('/about', function (req, res) {
     res.render('pages/about', {
@@ -43,4 +45,5 @@ app.get('/about', function (req, res) {
 });
 
 app.listen(8080);
-logger.info('server is listening on port 8080');
+//logger.info('server is listening on port 8080');
+console.log('server is listening on port 8080');

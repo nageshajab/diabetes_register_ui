@@ -29,24 +29,32 @@ const logConfiguration = {
         new transports.File({
             filename: __dirname + '/logs/debug_' + filename + '.log',
             json: false,
-            level:'debug'
+            level:'debug',
+            maxsize:'20m',
+            maxFiles:'2d'
         }),
         new transports.File({
             filename: __dirname + '/logs/info_' + filename + '.log',
             json: false,
-            level : 'info'
+            level : 'info',
+            maxsize:'20m',
+            maxFiles:'2d'
         }),
         new transports.File({
             filename: __dirname + '/logs/warn_' + filename + '.log',
             json: false,
-            level: 'warn'
+            level: 'warn',
+            maxsize:'20m',
+            maxFiles:'2d'
         }),
     ],
     exceptionHandlers: [
         new transports.File({
             filename: __dirname + '/logs/error_' + filename + '.log',
             json: false,
-            level:'error'
+            level:'error',
+            maxsize:'20m',
+            maxFiles:'2d'
         })
     ],
     exitOnError: false

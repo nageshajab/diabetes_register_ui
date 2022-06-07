@@ -1,5 +1,5 @@
 const axios = require('axios');
-const logger = require('../logger').logger;
+//const logger = require('../logger').logger;
 
 exports.generateToken = async function generateToken(username1, password1) {
     return new Promise(function (resolve, reject) {
@@ -13,16 +13,16 @@ exports.generateToken = async function generateToken(username1, password1) {
                 'Content-Length': data.length,
             }
         };
-        logger.info(`uri is ${process.env.BASE_URI}/user/generateToken`);
+     //   logger.info(`uri is ${process.env.BASE_URI}/user/generateToken`);
         axios.post(`${process.env.BASE_URI}/user/generateToken`, data, config)
             .then((res) => {
                 if (res.status === 200)
                     resolve(res.data);
                 else
-                    logger.error('res status is not 200');
+                    console.log('res status is not 200');
             })
             .catch(err => {
-                logger.error(err);
+                //logger.error(err);
                 if (err.response.status == 401) {
                     reject({
                         'status': 401,

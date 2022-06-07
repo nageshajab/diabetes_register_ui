@@ -1,5 +1,5 @@
 const axios = require('axios');
-const logger = require('../logger').logger;
+//const logger = require('../logger').logger;
 const req = require('express/lib/request');
 
 exports.list = async function list(req) {
@@ -14,14 +14,14 @@ exports.list = async function list(req) {
         var data = {};
         axios.post(`${process.env.BASE_URI}/diabetic/list`, data, config)
             .then((res) => {
-                logger.info(res.status);
+                //     logger.info(res.status);
                 if (res.status === 200) {
                     resolve(res.data);
                 }
 
             })
             .catch(err => {
-                logger.error(err);
+                //    logger.error(err);
                 if (err.response.status == 401) {
                     reject({
                         'status': 401,
@@ -39,6 +39,10 @@ exports.list = async function list(req) {
 
 exports.get = async function get(req) {
     return new Promise(function (resolve, reject) {
+        console.log('id to fetch is '+req.params.id);
+        const data = JSON.stringify({
+            id: req.params.id
+        });
         const config = {
             headers: {
                 'Content-Type': 'application/json',
@@ -46,18 +50,16 @@ exports.get = async function get(req) {
                 'Bearer': req.session.token
             }
         };
-        var data = {
-            id: req.params.id
-        };
-        axios.get(`${process.env.BASE_URI}/diabetic/get`, data, config)
+        //   logger.info(`uri is ${process.env.BASE_URI}/user/generateToken`);
+        axios.post(`${process.env.BASE_URI}/diabetic/get`, data, config)
             .then((res) => {
-                logger.info(res.status);
-                if (res.status === 200) {
+                if (res.status === 200)
                     resolve(res.data);
-                }
+                else
+                    console.log('res status is not 200');
             })
             .catch(err => {
-                logger.error(err);
+                //logger.error(err);
                 if (err.response.status == 401) {
                     reject({
                         'status': 401,
@@ -75,7 +77,7 @@ exports.get = async function get(req) {
 
 exports.delete = async function delete1(req) {
     return new Promise(function (resolve, reject) {
-        logger.info('deleting watch list ' + req.body.id);
+        //      logger.info('deleting watch list ' + req.body.id);
         const config = {
             headers: {
                 'Content-Type': 'application/json',
@@ -91,10 +93,10 @@ exports.delete = async function delete1(req) {
                 if (res.status === 200)
                     resolve(res.data);
                 else
-                    logger.error('res status is not 200');
+                    console.log('res status is not 200');
             })
             .catch(err => {
-                logger.error(err);
+                //    logger.error(err);
                 if (err.response.status == 401) {
                     reject({
                         'status': 401,
@@ -112,8 +114,8 @@ exports.delete = async function delete1(req) {
 
 exports.insert = async function insert(req) {
     return new Promise(function (resolve, reject) {
-        logger.info('inserting new diabetic entry ');
-        logger.debug(JSON.stringify(req.body));
+        // logger.info('inserting new diabetic entry ');
+        // logger.debug(JSON.stringify(req.body));
         const config = {
             headers: {
                 'Content-Type': 'application/json',
@@ -125,14 +127,14 @@ exports.insert = async function insert(req) {
         axios.post(`${process.env.BASE_URI}/diabetic/insert`, data, config)
             .then((res) => {
                 if (res.status === 200) {
-                    logger.debug(`returned api status as ${res.status}`);
-                    logger.debug(` ${ JSON.stringify( res.data)}`);
+                    // logger.debug(`returned api status as ${res.status}`);
+                    // logger.debug(` ${ JSON.stringify( res.data)}`);
                     resolve(res.data);
                 } else
-                    logger.error('res status is not 200');
+                    console.log('res status is not 200');
             })
             .catch(err => {
-                logger.error(err);
+                //logger.error(err);
                 if (err.response.status == 401) {
                     reject({
                         'status': 401,
