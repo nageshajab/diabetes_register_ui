@@ -59,7 +59,7 @@ exports.get = async function get(req) {
                     logger.error('generateToken res status is not 200');
             })
             .catch(err => {
-                logger.error(err);
+                logger.error(JSON.stringify( err));
                 if (err.response.status == 401) {
                     reject({
                         'status': 401,
@@ -77,7 +77,7 @@ exports.get = async function get(req) {
 
 exports.delete = async function delete1(req) {
     return new Promise(function (resolve, reject) {
-        logger.info('deleting watch list ' + req.body.id);
+        logger.info('deleting diabetic entry from service ' + req.body.id);
         const config = {
             headers: {
                 'Content-Type': 'application/json',

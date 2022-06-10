@@ -76,7 +76,7 @@ exports.get = async function get(req) {
 
 exports.delete = async function delete1(req) {
     return new Promise(function (resolve, reject) {
-        logger.info('deleting watch list ' + req.body.id);
+        logger.info('deleting medicine ' + req.body.id);
         const config = {
             headers: {
                 'Content-Type': 'application/json',

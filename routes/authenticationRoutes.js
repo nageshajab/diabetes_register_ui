@@ -3,14 +3,17 @@ var common = require('../common');
 var middleware = require('../middleware');
 var logger = require('../logger');
 
-module.exports = function (app) {
+module.exports = function (app,session) {
     //authentication
     app.get('/login', function (req, res) {
-        var envVariables = common.getEnvVariables(req);
-        res.render('pages/login', {
-            sessiontoken: require('../common').getSessionToken(req),
-            'msg': ''
-        });
+
+        session = req.session;
+        if (session.userid) {
+            res.send("Welcome User <a href=\'/logout'>click to logout</a>");
+        } else
+            res.render('pages/login', {
+                'msg': ''
+            });
     });
 
     app.post('/login', function (req, res) {
@@ -19,7 +22,9 @@ module.exports = function (app) {
             try {
                 var result = await userService.generateToken(req.body.username, req.body.password);
                 logger.info('result is ' + result);
-                req.session.token = result;
+                session=req.session;
+                session.userid=req.body.username;
+                session.token=result;
                 res.redirect('/');
             } catch (err) {
                 res.render('pages/login', {
@@ -30,5 +35,10 @@ module.exports = function (app) {
             }
         }
         generateToken();
+    });
+
+    app.get('/logout',(req,res) => {
+        req.session.destroy();
+        res.redirect('/login');
     });
 }

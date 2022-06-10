@@ -48,9 +48,7 @@ exports.clearLogFiles = function () {
                     return console.error(err);
                 }
                 now = new Date().getTime();
-                console.log(now);
                 endTime = new Date(stat.ctime).getTime() + 3600000;
-                console.log(endTime);
                 if (now > endTime) {
                     return rimraf(path.join(uploadsDir, file), function (err) {
                         if (err) {

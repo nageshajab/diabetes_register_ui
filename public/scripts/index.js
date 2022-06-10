@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).ready(function (url) {
     $('.loader').hide();
 
     $("tr").hover(function () {
@@ -6,8 +6,5 @@ $(document).ready(function () {
     });
     $("tr").mouseout(function () {
         $(this).css("background-color", "white");
-    });
-    $("tr").click(function(){
-        window.location.href ='/diabetic/update/'+ $(this).attr('id').replace('tr','');
     });
 });

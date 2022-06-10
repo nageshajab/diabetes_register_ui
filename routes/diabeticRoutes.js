@@ -6,7 +6,7 @@ const {
     json
 } = require('body-parser');
 
-module.exports = function (app) {
+module.exports = function (app,session) {
     app.get('/', middleware.validateUser, function (req, res) {
         logger.info('trying to load index page..');
 
@@ -30,7 +30,7 @@ module.exports = function (app) {
     });
 
     app.post('/diabetic/delete', middleware.validateUser, function (req, res) {
-        logger.info(req.body.id);
+        logger.info('deleting diabetic entry in route ' +req.body.id);
         const deleteData = async function deleteData() {
             try {
                 var result = await diabeticService.delete(req);
@@ -85,14 +85,14 @@ module.exports = function (app) {
             try {
                 var result = await diabeticService.get(req);
                 logger.debug('106 received response from diabeticService.get ' + JSON.stringify(result));
-                res.render('pages/diabetic/update', {
-                    'data': result,
+                res.render('pages/diabetic/insert', {
+                    data: result,
                     sessiontoken: require('../common').getSessionToken(req),
                     'msg': ''
                 });
             } catch (err) {
                 logger.error('107 ' + JSON.stringify(err));
-                res.render('pages/login', {
+                res.render('pages/index', {
                     'msg': err.status + err.msg,
                     sessiontoken: require('../common').getSessionToken(req)
                 });
