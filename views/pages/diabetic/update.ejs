@@ -19,37 +19,37 @@
                     <form action="/diabetic/insert" method="post">
                         <div class="form-group">
                             <label for="date">Date</label>
-                            <input type="datetime-local" class="form-control" name="date"
+                            <input type="datetime-local" value=<%= data.date %> class="form-control" name="date"
                                  placeholder="Select Date">
                         </div>
                         <div class="form-group">
                             <label for="bloodpressurepre">bloodpressurepre</label>
-                            <input type="number" class="form-control" name="bloodpressurepre"
+                            <input type="number" value=<%= data.bloodpressurepre %> class="form-control" name="bloodpressurepre"
                                 placeholder="bloodpressurepre">
                         </div>
                         <div class="form-group">
                             <label for="bloodpressurepost">bloodpressurepost</label>
-                            <input type="number" class="form-control" name="bloodpressurepost"
+                            <input type="number" value=<%= data.bloodpressurepost %> class="form-control" name="bloodpressurepost"
                                 placeholder="bloodpressurepost">
                         </div>
                         <div class="form-group">
                             <label for="weight">weight</label>
-                            <input type="number" step=".01" class="form-control" name="weight"
+                            <input type="number" step=".01" value=<%= data.weight %> class="form-control" name="weight"
                                 placeholder="weight">
                         </div>
                         <div class="form-group">
                             <label for="bslf">bslf</label>
-                            <input type="number" class="form-control" name="bslf"
+                            <input type="number" value=<%= data.bslf %> class="form-control" name="bslf"
                                 placeholder="bslf">
                         </div>
                         <div class="form-group">
                             <label for="bslpp">bslf</label>
-                            <input type="number" class="form-control" name="bslpp"
+                            <input type="number" value=<%= data.bslpp %>  class="form-control" name="bslpp"
                                 placeholder="bslpp">
                         </div>
                         <div class="form-group">
                             <label for="diagnosis">diagnosis</label>
-                            <textarea class="form-control" name="diagnosis" rows="3"></textarea>
+                            <textarea class="form-control"  name="diagnosis" rows="3"><%= data.diagnosis %> </textarea>
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                         <a type="cancel" class="btn btn-primary" href="/">Cancel</a>

@@ -1,7 +1,7 @@
 var userService = require('../services/user-service');
 var common = require('../common');
 var middleware = require('../middleware');
-//var logger = require('../logger').logger;
+var logger = require('../logger');
 
 module.exports = function (app) {
     //authentication
@@ -14,11 +14,11 @@ module.exports = function (app) {
     });
 
     app.post('/login', function (req, res) {
-     //   logger.debug('110 post login ' + req.body.username + ' ' + req.body.password);
+        logger.debug('110 post login ' + req.body.username + ' ' + req.body.password);
         const generateToken = async function generateToken() {
             try {
                 var result = await userService.generateToken(req.body.username, req.body.password);
-          //      logger.info('result is ' + result);
+                logger.info('result is ' + result);
                 req.session.token = result;
                 res.redirect('/');
             } catch (err) {

@@ -1,6 +1,5 @@
 const axios = require('axios');
 const logger = require('../logger');
-const req = require('express/lib/request');
 
 exports.list = async function list(req) {
     return new Promise(function (resolve, reject) {
@@ -12,7 +11,7 @@ exports.list = async function list(req) {
             }
         };
         var data = {};
-        axios.post(`${process.env.BASE_URI}/diabetic/list`, data, config)
+        axios.post(`${process.env.BASE_URI}/medicine/list`, data, config)
             .then((res) => {
                      logger.info(res.status);
                 if (res.status === 200) {
@@ -51,7 +50,7 @@ exports.get = async function get(req) {
             }
         };
         logger.info(`uri is ${process.env.BASE_URI}/user/generateToken`);
-        axios.post(`${process.env.BASE_URI}/diabetic/get`, data, config)
+        axios.post(`${process.env.BASE_URI}/medicine/get`, data, config)
             .then((res) => {
                 if (res.status === 200)
                     resolve(res.data);
@@ -88,7 +87,7 @@ exports.delete = async function delete1(req) {
         var data = {
             id: req.body.id
         };
-        axios.post(`${process.env.BASE_URI}/diabetic/delete`, data, config)
+        axios.post(`${process.env.BASE_URI}/medicine/delete`, data, config)
             .then((res) => {
                 if (res.status === 200)
                     resolve(res.data);
@@ -124,7 +123,7 @@ exports.insert = async function insert(req) {
             }
         };
         var data = req.body;
-        axios.post(`${process.env.BASE_URI}/diabetic/insert`, data, config)
+        axios.post(`${process.env.BASE_URI}/medicine/insert`, data, config)
             .then((res) => {
                 if (res.status === 200) {
                      logger.debug(`returned api status as ${res.status}`);

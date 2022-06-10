@@ -3,7 +3,7 @@ var session = require('express-session');
 var express = require('express');
 const dotenv = require('dotenv');
 const common = require('./common');
-//var logger = require('./logger').logger;
+var logger = require('./logger');
 const bodyParser = require('body-parser')
 
 const {
@@ -17,7 +17,7 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }));
-//define body parser to read request body
+
 //define body parser to read request body
 app.use(bodyParser.urlencoded({
     extended: false
@@ -34,7 +34,7 @@ dotenv.config();
 //define routes
 require('./routes/authenticationRoutes')(app);
 require('./routes/diabeticRoutes')(app);
-
+require('./routes/otherRoutes')(app);
 
 //about page
 app.get('/about', function (req, res) {
@@ -44,6 +44,10 @@ app.get('/about', function (req, res) {
     });
 });
 
-app.listen(8080);
-//logger.info('server is listening on port 8080');
-console.log('server is listening on port 8080');
+//start listening on port
+let PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  logger.clearLogFiles();
+  logger.info(`Server is up and running on ${PORT}`);
+  console.log(`Server is up and running on ${PORT}`);
+});

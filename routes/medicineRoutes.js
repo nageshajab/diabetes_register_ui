@@ -1,4 +1,4 @@
-var diabeticService = require('../services/diabeticService');
+var diabeticService = require('../services/medicineService');
 var middleware = require('../middleware');
 const logger = require('../logger');
 const {
