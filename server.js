@@ -5,7 +5,7 @@ const dotenv = require('dotenv');
 const common = require('./common');
 var logger = require('./logger');
 const bodyParser = require('body-parser')
-const https = require('https');
+//const https = require('https');
 const http=require('http');
 const fs = require('fs');
 
@@ -51,6 +51,9 @@ require('./routes/diabeticRoutes')(app, session);
 require('./routes/medicineRoutes')(app, session);
 
 //about page
+app.get('/', function (req, res) {
+    res.send('app is up and running');
+});
 app.get('/about', function (req, res) {
     res.render('pages/about', {
         sessiontoken: common.getSessionToken(req)
@@ -59,7 +62,7 @@ app.get('/about', function (req, res) {
 
 //start listening on port
 var HTTP_PORT=process.env.HTTP_PORT;
-var HTTPS_PORT=process.env.HTTPS_PORT;
+//var HTTPS_PORT=process.env.HTTPS_PORT;
 
 app.listen(HTTP_PORT, () => {
   logger.clearLogFiles();
@@ -67,7 +70,7 @@ app.listen(HTTP_PORT, () => {
   console.log(`Server is up and running on ${HTTP_PORT}`);
 });
 
-https.createServer(options, app).listen(`${HTTPS_PORT}`, () => {
-    logger.info('Server listening on port ' + `${HTTPS_PORT}`);
-    console.log(`Server is up and running on ${HTTPS_PORT}`);
-});
+// https.createServer(options, app).listen(`${HTTPS_PORT}`, () => {
+//     logger.info('Server listening on port ' + `${HTTPS_PORT}`);
+//     console.log(`Server is up and running on ${HTTPS_PORT}`);
+// });
