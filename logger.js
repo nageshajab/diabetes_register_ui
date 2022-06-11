@@ -41,6 +41,9 @@ exports.clearLogFiles = function () {
     var uploadsDir = __dirname + '/logs';
 
     fs.readdir(uploadsDir, function (err, files) {
+        if (typeof files == 'undefined')
+            return;
+
         files.forEach(function (file, index) {
             fs.stat(path.join(uploadsDir, file), function (err, stat) {
                 var endTime, now;
