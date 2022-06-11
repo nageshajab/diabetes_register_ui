@@ -2,7 +2,6 @@ var fs = require('fs');
 const path = require('node:path');
 const rimraf = require('rimraf');
 
-
 let date_ob = new Date();
 
 var day = date_ob.getDate();
@@ -28,6 +27,10 @@ exports.info = function info(msg) {
 }
 
 function writetoFile(fname, content) {
+    if (process.env.ENVIRONMENT == 'prod') {
+        console.log(content);
+        return;
+    }
     fs.appendFile(fname, content, err => {
         if (err) {
             console.error(err);

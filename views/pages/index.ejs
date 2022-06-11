@@ -21,69 +21,37 @@
               Add New
             </a>
           </div>
-          <div class = "container-fluid">
-            <div class = "row">
-              <div class = "col-lg-12" style = "color:rgb(255, 255, 255);background-color:rebeccapurple;">
-                large only div
-             </div>
-               <div class = "col-sm-3 col-md-6 col-lg-4" style = "color:white;background-color:orange;">
-                  This is div1.
-               </div>
-               <div class = "col-sm-9 col-md-6 col-lg-8" style = "color:white;background-color:blue;">
-                  This is div2.
-               </div>
-               <div class = "col-sm-3 col-md-6 col-lg-4" style = "color:white;background-color:green;">
-                  This is div3.
-               </div>
-               <div class = "col-sm-9 col-md-6 col-lg-8" style = "color:white;background-color:gray;">
-                  This is div4.
-               </div>
-            </div>
-         </div>
-          <!-- <table class="table">
-            <tr>
-              <th>Date</th>
-              <th>BloodPressurePre</th>
-              <th>BloodPressurePost</th>
-              <th>Weight</th>
-              <th>BSLF</th>
-              <th>BSLPP</th>
-              <th>Diagnosis</th>
-              <th></th>
-            </tr>
-            <% if (typeof data !='undefined' ) { %>
-              <% for(var i=0;i < data.length;i++) { %>
-                <tr id="tr<%= data[i]._id %>">
-                  <td>
-                    <%= data[i].date.substring(0,10) %>
-                  </td>
-                  <td>
-                    <%= data[i].bloodpressurepre %>
-                  </td>
-                  <td>
-                    <%= data[i].bloodpressurepost %>
-                  </td>
-                  <td>
-                    <%= data[i].weight %>
-                  </td>
-                  <td>
-                    <%= data[i].bslf %>
-                  </td>
-                  <td>
-                    <%= data[i].bslpp %>
-                  </td>
-                  <td>
-                    <%= data[i].diagnosis %>
-                  </td>
-                  <td>
-                    <a class="btn btn-primary pr-2" href="/diabetic/update/<%= data[i]._id %>">Update</a>
-                    <button class="btn btn-primary" type="button" id='<%= data[i]._id %>'
-                      onclick="deleteme('<%= data[i]._id %>','localhost:5001/diabetic/delete')">Delete</button>
-                  </td>
-                </tr>
-                <% } %>
+          <div class="container-fluid">
+            <div class="row">
+              <% if (typeof data !='undefined' ) { %>
+                <% for(var i=0;i < data.length;i++) { %>
+                  <div id=<%= data[i]._id %> class="col-lg-3 m-2 card">
+                    <div class="row card-body">
+                      <h5 class="card-title"><%= data[i].date.substring(0,10) %></h5>
+                      <div >
+                        <div>BloodPressurePre <%= data[i].bloodpressurepre %>
+                        </div>
+                        <div>BloodPressurePost <%= data[i].bloodpressurepost %>
+                        </div>
+                        <div>Weight <%= data[i].weight %>
+                        </div>
+                        <div>BSLF<%= data[i].bslf %>
+                        </div>
+                        <div>BSLPP <%= data[i].bslpp %>
+                        </div>
+                        <div>Diagnosis <%= data[i].diagnosis %>
+                        </div>
+                        <div> <a class="btn btn-primary pr-2" href="/diabetic/update/<%= data[i]._id %>">Update</a>
+                          <button class="btn btn-primary" type="button" id='<%= data[i]._id %>'
+                            onclick="deleteme('<%= data[i]._id %>','localhost:5001/diabetic/delete')">Delete</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                   <% } %>
-          </table> -->
+                    <% } %>
+            </div>
+          </div>
   </main>
   <footer>
     <script src="/scripts/index.js"></script>

@@ -19,7 +19,7 @@ exports.generateToken = async function generateToken(username1, password1) {
                 if (res.status === 200)
                     resolve(res.data);
                 else
-                    console.log('res status is not 200');
+                   logger.error('res status is not 200');
             })
             .catch(err => {
                 logger.error(err);

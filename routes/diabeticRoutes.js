@@ -1,4 +1,5 @@
 var diabeticService = require('../services/diabeticService');
+var medicineService = require('../services/medicineService');
 var middleware = require('../middleware');
 const logger = require('../logger');
 const {
@@ -6,7 +7,7 @@ const {
     json
 } = require('body-parser');
 
-module.exports = function (app,session) {
+module.exports = function (app, session) {
     app.get('/', middleware.validateUser, function (req, res) {
         logger.info('trying to load index page..');
 
@@ -30,7 +31,7 @@ module.exports = function (app,session) {
     });
 
     app.post('/diabetic/delete', middleware.validateUser, function (req, res) {
-        logger.info('deleting diabetic entry in route ' +req.body.id);
+        logger.info('deleting diabetic entry in route ' + req.body.id);
         const deleteData = async function deleteData() {
             try {
                 var result = await diabeticService.delete(req);
@@ -52,10 +53,30 @@ module.exports = function (app,session) {
     });
 
     app.get('/diabetic/insert', middleware.validateUser, function (req, res) {
-        res.render('pages/diabetic/insert', {
-            sessiontoken: require('../common').getSessionToken(req),
-            'msg': ''
-        });
+        const getData = async function getData() {
+            try {
+                var medicineResult = await medicineService.list(req);
+                var allmedicines = "";
+                for (var i = 0; i < medicineResult.length; i++) {
+                    console.log(medicineResult[i].name);
+                    allmedicines += medicineResult[i].name + ",";
+                }
+                console.log(allmedicines);
+                logger.debug('received medicines ' + JSON.stringify(medicineResult));
+                res.render('pages/diabetic/insert', {
+                    sessiontoken: require('../common').getSessionToken(req),
+                    'msg': '',
+                    medicines: allmedicines
+                });
+            } catch (err) {
+                logger.error('107 ' + JSON.stringify(err));
+                res.render('pages/index', {
+                    'msg': err.status + err.msg,
+                    sessiontoken: require('../common').getSessionToken(req)
+                });
+            }
+        }
+        getData();
     });
 
     app.post('/diabetic/insert', middleware.validateUser, function (req, res) {
@@ -82,9 +103,11 @@ module.exports = function (app,session) {
         const getData = async function getData() {
             try {
                 var result = await diabeticService.get(req);
+                var medicineResult = await medicineService.list(req);
                 logger.debug('106 received response from diabeticService.get ' + JSON.stringify(result));
-                res.render('pages/diabetic/insert', {
+                res.render('pages/diabetic/update', {
                     data: result,
+                    medicines: medicineResult,
                     sessiontoken: require('../common').getSessionToken(req),
                     'msg': ''
                 });

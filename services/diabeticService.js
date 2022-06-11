@@ -39,7 +39,7 @@ exports.list = async function list(req) {
 
 exports.get = async function get(req) {
     return new Promise(function (resolve, reject) {
-        console.log('id to fetch is ' + req.params.id);
+        logger.debug('id to fetch is ' + req.params.id);
         const data = JSON.stringify({
             id: req.params.id
         });
@@ -93,7 +93,7 @@ exports.delete = async function delete1(req) {
                 if (res.status === 200)
                     resolve(res.data);
                 else
-                    console.log('res status is not 200');
+                   logger.error('res status is not 200');
             })
             .catch(err => {
                 logger.error(err);
@@ -131,7 +131,7 @@ exports.insert = async function insert(req) {
                      logger.debug(` ${ JSON.stringify( res.data)}`);
                     resolve(res.data);
                 } else
-                    console.log('res status is not 200');
+                   logger.error('res status is not 200');
             })
             .catch(err => {
                 logger.error(err);
