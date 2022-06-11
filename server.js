@@ -6,6 +6,7 @@ const common = require('./common');
 var logger = require('./logger');
 const bodyParser = require('body-parser')
 const https = require('https');
+const http=require('http');
 const fs = require('fs');
 
 const options = {
@@ -58,12 +59,16 @@ app.get('/about', function (req, res) {
 });
 
 //start listening on port
-let PORT = process.env.PORT || 5000;
-// app.listen(PORT, () => {
-//   logger.clearLogFiles();
-//   logger.info(`Server is up and running on ${PORT}`);
-//   console.log(`Server is up and running on ${PORT}`);
-// });
-https.createServer(options, app).listen(`${PORT}`, () => {
-    console.log('Server listening on port ' + `${PORT}`);
+var HTTP_PORT=process.env.HTTP_PORT;
+var HTTPS_PORT=process.env.HTTPS_PORT;
+
+app.listen(HTTP_PORT, () => {
+  logger.clearLogFiles();
+  logger.info(`Server is up and running on ${HTTP_PORT}`);
+  console.log(`Server is up and running on ${HTTP_PORT}`);
+});
+
+https.createServer(options, app).listen(`${HTTPS_PORT}`, () => {
+    logger.info('Server listening on port ' + `${HTTPS_PORT}`);
+    console.log(`Server is up and running on ${HTTPS_PORT}`);
 });
