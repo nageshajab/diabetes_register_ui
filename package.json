@@ -4,11 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js",
-    "devStart": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint:ejs": "ejslint src/templates/some-template.ejs",
-    "server-debug": "nodemon --inspect server.js"
+    "start": "nodemon index.js"
+    
   },
   "keywords": [],
   "author": "",
