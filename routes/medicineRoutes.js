@@ -38,15 +38,13 @@ module.exports = function (app,session) {
                 res.render('pages/index', {
                     'data': result,
                     sessiontoken: require('../common').getSessionToken(req),
-                    'msg': 'deleted ',
-                    DB_URI: common.getEnvVariables()
+                    'msg': 'deleted '
                 });
             } catch (err) {
                 logger.error(err);
                 res.render('pages/index', {
                     'msg': err.status + err.msg,
-                    sessiontoken: require('../common').getSessionToken(req),
-                    DB_URI: common.getEnvVariables()
+                    sessiontoken: require('../common').getSessionToken(req)
                 });
             }
         }
