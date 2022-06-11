@@ -1,8 +1,15 @@
 document.addEventListener('DOMContentLoaded', init, false);
 
 function init() {
-  if (!navigator.onLine) {
-    const statusElem = document.querySelector('.page-status')
-    statusElem.innerHTML = 'offline'
+  //const statusElem = document.querySelector('.page-status')
+  if (!window.navigator.onLine) { 
+    //statusElem.innerHTML = 'offline'
+    console.log('offline');
   }
+  //statusElem.innerHTML = 'online'
+  console.log('online');
 }
+
+window.addEventListener('offline', function(e) { console.log('offline'); });
+
+window.addEventListener('online', function(e) { console.log('online'); });
