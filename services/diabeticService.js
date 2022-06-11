@@ -21,7 +21,7 @@ exports.list = async function list(req) {
 
             })
             .catch(err => {
-                    logger.error(err);
+                    logger.error(JSON.stringify( err));
                 if (err.response.status == 401) {
                     reject({
                         'status': 401,
