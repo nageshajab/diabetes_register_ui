@@ -52,8 +52,7 @@ require('./routes/medicineRoutes')(app, session);
 //about page
 app.get('/about', function (req, res) {
     res.render('pages/about', {
-        sessiontoken: common.getSessionToken(req),
-        DB_URI: common.getEnvVariables()
+        sessiontoken: common.getSessionToken(req)
     });
 });
 

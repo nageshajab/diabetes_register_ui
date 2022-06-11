@@ -29,8 +29,7 @@ module.exports = function (app,session) {
             } catch (err) {
                 res.render('pages/login', {
                     'msg': err.status + err.msg,
-                    sessiontoken: require('../common').getSessionToken(req),
-                    DB_URI: common.getEnvVariables()
+                    sessiontoken: require('../common').getSessionToken(req)
                 });
             }
         }

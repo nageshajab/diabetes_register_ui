@@ -14,7 +14,6 @@ exports.addEnvironmentVariablesToResponse = function (req, res, next) {
     if (typeof res.body == 'undefined') {
         res.body = {};
     }
-    res.body.DB_URI = 'uru';
     res.body.msg = '';
     res.body.sessiontoken = common.getSessionToken(req);
 

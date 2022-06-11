@@ -9,7 +9,6 @@ exports.getSessionToken = function (req) {
 }
 exports.getEnvVariables = function (req) {
     return {
-        DB_URI: process.env.DB_URI,
         sessiontoken: this.getSessionToken(req)
     };
 }
