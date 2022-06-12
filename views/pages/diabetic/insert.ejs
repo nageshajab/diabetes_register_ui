@@ -19,7 +19,7 @@
             </div>
             <% } %>
                 <%- include('../../partials/loader'); %>
-                    <form action="/diabetic/insert" method="post">
+                    <form id="submitform" action="/diabetic/insert" method="post">
                         <div class="form-group p-2">
                             <label for="date" class="pb-2">Date</label>
                             <input type="datetime-local" class="form-control" name="date" placeholder="Select Date">
@@ -51,16 +51,15 @@
                             <textarea class="form-control" name="diagnosis" rows="3"></textarea>
                         </div>
                         <div class="form-group p-2">
-                            <label class="pb-2" for="medicines">Medicines</label>
+                            <span class="" id="allmedicines"><%= medicines %></span>
                             
-                            <span id="allmedicines"><%= medicines %></span>
+                            <div class = "ui-widget">
+                                <label for = "medicine">Medicines : </label>
+                                <input  onfocus="searchMedicine()" id = "medicine">
+                             </div>
                             <ul id="medicinelist">
                             </ul>
-                            <div class = "ui-widget">
-                                <p>Type "a" or "s"</p>
-                                <label for = "medicine">Tags: </label>
-                                <input onkeypress="keypress()" onfocus="searchMedicine()" id = "medicine">
-                             </div>
+                            <input class="d-none" name="medicines" class="" type="text" id="selectedMedicines">
                         </div>
                         <div class="p-2">
                             <button type="submit" class="btn btn-primary ">Submit</button>
@@ -73,6 +72,7 @@
     </footer>
     <script src="/scripts/index.js"></script>
     <script src="/scripts/searchmedicine.js"></script>
+    <script src="/scripts/common.js"></script>
 </body>
 
 </html>

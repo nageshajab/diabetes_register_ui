@@ -63,11 +63,11 @@ app.get('/about', function (req, res) {
 //start listening on port
 let PORT = process.env.PORT || 5000;
 //var HTTPS_PORT=process.env.HTTPS_PORT;
-
+var dt=new Date();
 app.listen(PORT, () => {
   logger.clearLogFiles();
-  logger.info(`Server is up and running on ${PORT}`);
-  console.log(`Server is up and running on ${PORT}`);
+  logger.info(`Server is up and running on ${PORT}, ${dt.getHours()}:${dt.getMinutes()}`);
+  console.log(`Server is up and running on ${PORT}, ${dt.getHours()}:${dt.getMinutes()}`);
 });
 
 // https.createServer(options, app).listen(`${HTTPS_PORT}`, () => {

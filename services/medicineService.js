@@ -13,15 +13,15 @@ exports.list = async function list(req) {
         var data = {};
         axios.post(`${process.env.BASE_URI}/medicine/list`, data, config)
             .then((res) => {
-                     logger.info(res.status);
+                logger.info(res.status);
                 if (res.status === 200) {
                     resolve(res.data);
                 }
 
             })
             .catch(err => {
-                    logger.error(err);
-                if (err.response.status == 401) {
+                logger.error(err);
+                if (err.response != undefined && err.response.status == 401) {
                     reject({
                         'status': 401,
                         'msg': 'Unauthorized, invalid username or password'
@@ -38,7 +38,7 @@ exports.list = async function list(req) {
 
 exports.get = async function get(req) {
     return new Promise(function (resolve, reject) {
-       logger.debug('id to fetch is ' + req.params.id);
+        logger.debug('id to fetch is ' + req.params.id);
         const data = JSON.stringify({
             id: req.params.id
         });
@@ -92,7 +92,7 @@ exports.delete = async function delete1(req) {
                 if (res.status === 200)
                     resolve(res.data);
                 else
-                  logger.error('res status is not 200');
+                    logger.error('res status is not 200');
             })
             .catch(err => {
                 logger.error(err);
@@ -113,8 +113,8 @@ exports.delete = async function delete1(req) {
 
 exports.insert = async function insert(req) {
     return new Promise(function (resolve, reject) {
-         logger.info('inserting new diabetic entry ');
-         logger.debug(JSON.stringify(req.body));
+        logger.info('inserting new diabetic entry ');
+        logger.debug(JSON.stringify(req.body));
         const config = {
             headers: {
                 'Content-Type': 'application/json',
@@ -126,11 +126,11 @@ exports.insert = async function insert(req) {
         axios.post(`${process.env.BASE_URI}/medicine/insert`, data, config)
             .then((res) => {
                 if (res.status === 200) {
-                     logger.debug(`returned api status as ${res.status}`);
-                     logger.debug(` ${ JSON.stringify( res.data)}`);
+                    logger.debug(`returned api status as ${res.status}`);
+                    logger.debug(` ${ JSON.stringify( res.data)}`);
                     resolve(res.data);
                 } else
-                   logger.error('res status is not 200');
+                    logger.error('res status is not 200');
             })
             .catch(err => {
                 logger.error(err);

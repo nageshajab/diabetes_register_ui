@@ -56,17 +56,16 @@ module.exports = function (app, session) {
         const getData = async function getData() {
             try {
                 var medicineResult = await medicineService.list(req);
-                var allmedicines = "";
-                for (var i = 0; i < medicineResult.length; i++) {
-                    console.log(medicineResult[i].name);
-                    allmedicines += medicineResult[i].name + ",";
-                }
-                console.log(allmedicines);
+                // var allmedicines = "";
+                // for (var i = 0; i < medicineResult.length; i++) {
+                //     allmedicines += medicineResult[i].name + ",";
+                // }
+
                 logger.debug('received medicines ' + JSON.stringify(medicineResult));
                 res.render('pages/diabetic/insert', {
                     sessiontoken: require('../common').getSessionToken(req),
                     'msg': '',
-                    medicines: allmedicines
+                    medicines: JSON.stringify( medicineResult)
                 });
             } catch (err) {
                 logger.error('107 ' + JSON.stringify(err));
@@ -102,12 +101,17 @@ module.exports = function (app, session) {
 
         const getData = async function getData() {
             try {
-                var result = await diabeticService.get(req);
                 var medicineResult = await medicineService.list(req);
+                // var allmedicines = "";
+                // for (var i = 0; i < medicineResult.length; i++) {
+                //     allmedicines += medicineResult[i].name + ",";
+                // }
+
+                var result = await diabeticService.get(req);
                 logger.debug('106 received response from diabeticService.get ' + JSON.stringify(result));
                 res.render('pages/diabetic/update', {
                     data: result,
-                    medicines: medicineResult,
+                    medicines: JSON.stringify( medicineResult),
                     sessiontoken: require('../common').getSessionToken(req),
                     'msg': ''
                 });
