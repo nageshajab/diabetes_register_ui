@@ -10,6 +10,7 @@
     <%- include('../../partials/header'); %>
   </header>
   <main>
+    <input type="text" id="apiurl" value=<%=apiurl %> >
     <% if( msg.length!=0) { %>
       <div class="alert alert-danger " role="alert">
         <%= msg %>
@@ -18,11 +19,19 @@
         <%- include('../../partials/loader'); %>
           <!-- Button trigger modal -->
           <div class="p-2">
+            <span>Name</span>
+            <input type="text" id="name" placeholder="Enter name">
             <a href="/medicine/insert" class="btn btn-primary">
               Add New
             </a>
           </div>
           <div class="container-fluid">
+            <div class="row" id="cardcontainer">
+
+              
+            </div>
+          </div>
+          <!-- <div class="container-fluid">
             <div class="row">
               <% if (typeof data !='undefined' ) { %>
                 <% for(var i=0;i < data.length;i++) { %>
@@ -44,13 +53,14 @@
                   </div>
                   <% } %>
                     <% } %>
-            </div>
+            </div> -->
           </div>
 
   </main>
   <footer>
     <script src="/scripts/index.js"></script>
     <script src="/scripts/delete.js"></script>
+    <script src="/scripts/medicine/search.js"></script>
     <%- include('../../partials/footer'); %>
   </footer>
 

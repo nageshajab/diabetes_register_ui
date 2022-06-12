@@ -8,7 +8,7 @@ const {
 
 module.exports = function (app,session) {
     app.get('/medicine', middleware.validateUser, function (req, res) {
-        logger.info('trying to load medicine index page..');
+        logger.info('trying to load medicine index page..'+process.env.BASE_URI);
 
         const getData = async function getData() {
             try {
@@ -17,12 +17,14 @@ module.exports = function (app,session) {
                 res.render('pages/medicine/index', {
                     'data': result,
                     sessiontoken: require('../common').getSessionToken(req),
-                    'msg': ''
+                    'msg': '',
+                    'apiurl':process.env.BASE_URI
                 });
             } catch (err) {
                 res.render('pages/medicine/index', {
                     'msg': err.status + err.msg,
-                    sessiontoken: require('../common').getSessionToken(req)
+                    sessiontoken: require('../common').getSessionToken(req),
+                    'apiurl':process.env.BASE_URI
                 });
             }
         }
