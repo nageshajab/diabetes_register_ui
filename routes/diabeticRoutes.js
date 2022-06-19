@@ -56,15 +56,13 @@ module.exports = function (app, session) {
         const getData = async function getData() {
             try {
                 var medicineResult = await medicineService.list(req);
-                // var allmedicines = "";
-                // for (var i = 0; i < medicineResult.length; i++) {
-                //     allmedicines += medicineResult[i].name + ",";
-                // }
+              
 
                 logger.debug('received medicines ' + JSON.stringify(medicineResult));
                 res.render('pages/diabetic/insert', {
                     sessiontoken: require('../common').getSessionToken(req),
                     'msg': '',
+                    'baseUrl':process.env.BASE_URI,
                     medicines: JSON.stringify( medicineResult)
                 });
             } catch (err) {
@@ -102,10 +100,7 @@ module.exports = function (app, session) {
         const getData = async function getData() {
             try {
                 var medicineResult = await medicineService.list(req);
-                // var allmedicines = "";
-                // for (var i = 0; i < medicineResult.length; i++) {
-                //     allmedicines += medicineResult[i].name + ",";
-                // }
+               
 
                 var result = await diabeticService.get(req);
                 logger.debug('106 received response from diabeticService.get ' + JSON.stringify(result));
@@ -113,7 +108,8 @@ module.exports = function (app, session) {
                     data: result,
                     medicines: JSON.stringify( medicineResult),
                     sessiontoken: require('../common').getSessionToken(req),
-                    'msg': ''
+                    'msg': '',
+                    'baseUri':process.env.BASE_URI
                 });
             } catch (err) {
                 logger.error('107 ' + JSON.stringify(err));
@@ -126,4 +122,21 @@ module.exports = function (app, session) {
         getData();
     });
 
+    app.post('/diabetic/update', middleware.validateUser, function (req, res) {
+        logger.info('in post method of diabetic update ');
+        logger.debug('req body is ' + JSON.stringify(req.body));
+        diabeticService.update(req).then((result) => {
+            logger.debug('diabetic service insert method returned this result ' + JSON.stringify(result));
+            if (result.acknowledged == true) {
+                logger.debug('101 result.acknowledged == true')
+                res.redirect('/');
+            } else {
+                logger.debug('102 returning to same page as insert failed')
+                res.render('pages/diabetic/insert', {
+                    sessiontoken: require('../common').getSessionToken(req),
+                    'msg': JSON.stringify(result)
+                });
+            }
+        });
+    });
 }

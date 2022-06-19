@@ -3,9 +3,8 @@
 
 <head>
     <%- include('../../partials/head'); %>
-    <link href = "https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"
-    rel = "stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+        <link href="/styles/jquery-ui.min.1.12.1.css" rel="stylesheet">
+        <script src="/scripts/jquery-ui.min.1.12.1.js"></script>
 </head>
 
 <body class="container">
@@ -13,6 +12,7 @@
         <%- include('../../partials/header'); %>
     </header>
     <main>
+        <input type="text" id="txtBaseUrl" value=<%=baseUrl %>>
         <% if( msg.length!=0) { %>
             <div class="alert alert-danger " role="alert">
                 <%= msg %>
@@ -51,15 +51,14 @@
                             <textarea class="form-control" name="diagnosis" rows="3"></textarea>
                         </div>
                         <div class="form-group p-2">
-                            <span class="" id="allmedicines"><%= medicines %></span>
-                            
-                            <div class = "ui-widget">
-                                <label for = "medicine">Medicines : </label>
-                                <input  onfocus="searchMedicine()" id = "medicine">
-                             </div>
+                            <div class="ui-widget">
+                                <label for="medicine">Medicines : </label>
+                                <input id="medicine" placeholder="Enter medicine name">
+                                <button type="button" id="add" onclick="addmedicine()">Add</button>
+                            </div>
                             <ul id="medicinelist">
                             </ul>
-                            <input class="d-none" name="medicines" class="" type="text" id="selectedMedicines">
+                            <input   name="medicines" class="" type="text" id="selectedMedicines">
                         </div>
                         <div class="p-2">
                             <button type="submit" class="btn btn-primary ">Submit</button>
@@ -70,9 +69,9 @@
     <footer>
         <%- include('../../partials/footer'); %>
     </footer>
-    <script src="/scripts/index.js"></script>
-    <script src="/scripts/searchmedicine.js"></script>
-    <script src="/scripts/common.js"></script>
+    <script src="/scripts/common/getData.js"></script>
+    <script src="/scripts/medicine/autocomplete.js"></script>
+   <script src="/scripts/common/common.js"></script>
 </body>
 
 </html>
