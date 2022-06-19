@@ -64,6 +64,7 @@ function setSelectedMedicineTxt(selectedmedicines) {
         }
     }
     $('#selectedMedicines').val(parsedVal);
+    console.log('wada'+$('#selectedMedicines').val());
 }
 
 function getIdfromText(name) {
