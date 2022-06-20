@@ -9,7 +9,7 @@ const {
 
 module.exports = function (app, session) {
     app.get('/', middleware.validateUser, function (req, res) {
-        logger.info('trying to load index page..');
+        logger.info('trying to load diabetic index page..');
 
         const getData = async function getData() {
             try {
@@ -56,8 +56,7 @@ module.exports = function (app, session) {
         const getData = async function getData() {
             try {
                 var medicineResult = await medicineService.list(req);
-              
-
+            
                 logger.debug('received medicines ' + JSON.stringify(medicineResult));
                 res.render('pages/diabetic/insert', {
                     sessiontoken: require('../common').getSessionToken(req),
@@ -101,7 +100,6 @@ module.exports = function (app, session) {
             try {
                 var medicineResult = await medicineService.list(req);
                
-
                 var result = await diabeticService.get(req);
                 logger.debug('106 received response from diabeticService.get ' + JSON.stringify(result));
                 res.render('pages/diabetic/update', {
@@ -126,7 +124,7 @@ module.exports = function (app, session) {
         logger.info('in post method of diabetic update ');
         logger.debug('req body is ' + JSON.stringify(req.body));
         diabeticService.update(req).then((result) => {
-            logger.debug('diabetic service insert method returned this result ' + JSON.stringify(result));
+            logger.debug('diabetic service update method returned this result ' + JSON.stringify(result));
             if (result.acknowledged == true) {
                 logger.debug('101 result.acknowledged == true')
                 res.redirect('/');

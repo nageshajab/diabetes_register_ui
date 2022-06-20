@@ -1,4 +1,4 @@
-var medicineService = require('../services/medicineService');
+var roleService = require('../services/roleService');
 var middleware = require('../middleware');
 const logger = require('../logger');
 const {
@@ -6,45 +6,45 @@ const {
     json
 } = require('body-parser');
 
-module.exports = function (app, session) {
-    app.get('/medicine', middleware.validateUser, function (req, res) {
-        logger.info('trying to load medicine index page..' + process.env.BASE_URI);
+module.exports = function (app,session) {
+    app.get('/roles', middleware.validateUser, function (req, res) {
+        logger.info('trying to load role index page..'+process.env.BASE_URI);
 
         const getData = async function getData() {
             try {
-                var result = await medicineService.list(req);
-                logger.debug('found list of medicines ' + JSON.stringify(result));
-                res.render('pages/medicine/index', {
+                var result = await roleService.list(req);
+                logger.debug('found list of roles '+JSON.stringify(result));
+                res.render('pages/roles/index', {
                     'data': result,
                     sessiontoken: require('../common').getSessionToken(req),
                     'msg': '',
-                    'apiurl': process.env.BASE_URI
+                    'apiurl':process.env.BASE_URI
                 });
             } catch (err) {
-                res.render('pages/medicine/index', {
+                res.render('pages/roles/index', {
                     'msg': err.status + err.msg,
                     sessiontoken: require('../common').getSessionToken(req),
-                    'apiurl': process.env.BASE_URI
+                    'apiurl':process.env.BASE_URI
                 });
             }
         }
         getData();
     });
 
-    app.post('/medicine/delete', middleware.validateUser, function (req, res) {
-        logger.info('medicine delete post ' + req.body.id);
+    app.post('/roles/delete', middleware.validateUser, function (req, res) {
+        logger.info(req.body.id);
         const deleteData = async function deleteData() {
             try {
-                var result = await medicineService.delete(req);
+                var result = await roleService.delete(req);
                 logger.info('result is ' + JSON.stringify(result));
-                res.render('pages/index', {
+                res.render('pages/roles/index', {
                     'data': result,
                     sessiontoken: require('../common').getSessionToken(req),
                     'msg': 'deleted '
                 });
             } catch (err) {
                 logger.error(err);
-                res.render('pages/index', {
+                res.render('pages/roles/index', {
                     'msg': err.status + err.msg,
                     sessiontoken: require('../common').getSessionToken(req)
                 });
@@ -53,24 +53,24 @@ module.exports = function (app, session) {
         deleteData();
     });
 
-    app.get('/medicine/insert', middleware.validateUser, function (req, res) {
-        res.render('pages/medicine/insert', {
+    app.get('/roles/insert', middleware.validateUser, function (req, res) {
+        res.render('pages/roles/insert', {
             sessiontoken: require('../common').getSessionToken(req),
             'msg': ''
         });
     });
 
-    app.post('/medicine/insert', middleware.validateUser, function (req, res) {
-        logger.info('in post method of medicine insert ');
-        logger.debug('req body is ' + JSON.stringify(req.body));
-        medicineService.insert(req).then((result) => {
-            logger.debug('medicine service insert method returned this result ' + JSON.stringify(result));
+    app.post('/roles/insert', middleware.validateUser, function (req, res) {
+        logger.info('in post method of role insert ');
+        logger.debug('role insert: req body is ' + JSON.stringify(req.body));
+        roleService.insert(req).then((result) => {
+            logger.debug('role service insert method returned this result ' + JSON.stringify(result));
             if (result.acknowledged == true) {
                 logger.debug('101 result.acknowledged == true')
-                res.redirect('/medicine');
+                res.redirect('/roles');
             } else {
                 logger.debug('102 returning to same page as insert failed')
-                res.render('pages/medicine/insert', {
+                res.render('pages/roles/insert', {
                     sessiontoken: require('../common').getSessionToken(req),
                     'msg': JSON.stringify(result)
                 });
@@ -78,21 +78,21 @@ module.exports = function (app, session) {
         });
     });
 
-    app.get('/medicine/update/:id', middleware.validateUser, function (req, res) {
-        logger.info('103 trying to load medicine update page..');
+    app.get('/roles/update/:id', middleware.validateUser, function (req, res) {
+        logger.info('103 trying to load role update page..');
 
         const getData = async function getData() {
             try {
-                var result = await medicineService.get(req);
-                logger.debug('106 received response from medicineService.get ' + JSON.stringify(result));
-                res.render('pages/medicine/update', {
+                var result = await roleService.get(req);
+                logger.debug('106 received response from roleService.get ' + JSON.stringify(result));
+                res.render('pages/roles/update', {
                     'data': result,
                     sessiontoken: require('../common').getSessionToken(req),
                     'msg': ''
                 });
             } catch (err) {
                 logger.error('107 ' + JSON.stringify(err));
-                res.render('pages/medicine/index', {
+                res.render('pages/roles/index', {
                     'msg': err.status + err.msg,
                     sessiontoken: require('../common').getSessionToken(req)
                 });
@@ -101,22 +101,22 @@ module.exports = function (app, session) {
         getData();
     });
 
-    app.post('/medicine/update', middleware.validateUser, function (req, res) {
-        logger.info('103 trying to update medicine..');
+    app.post('/roles/update', middleware.validateUser, function (req, res) {
+        logger.info('103 trying to update role..');
 
         const getData = async function getData() {
             try {
-                var result = await medicineService.update(req);
-                logger.debug('106 received response from medicineService.update post ' + JSON.stringify(result));
-                res.render('pages/medicine/index', {
+                var result = await roleService.update(req);
+                logger.debug('106 received response from roleService.update post ' + JSON.stringify(result));
+                res.render('pages/roles/index', {
                     'data': result,
                     sessiontoken: require('../common').getSessionToken(req),
                     'msg': '',
-                    'apiurl': process.env.BASE_URI
+                    'apiurl':process.env.BASE_URI
                 });
             } catch (err) {
                 logger.error('107 ' + JSON.stringify(err));
-                res.render('pages/medicine/index', {
+                res.render('pages/roles/index', {
                     'msg': err.status + err.msg,
                     sessiontoken: require('../common').getSessionToken(req)
                 });

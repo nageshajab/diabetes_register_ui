@@ -13,8 +13,8 @@ exports.generateToken = async function generateToken(username1, password1) {
                 'Content-Length': data.length,
             }
         };
-        logger.info(`uri is ${process.env.BASE_URI}/user/generateToken`);
-        axios.post(`${process.env.BASE_URI}/user/generateToken`, data, config)
+        logger.info(`uri is ${process.env.BASE_URI}/users/generateToken`);
+        axios.post(`${process.env.BASE_URI}/users/generateToken`, data, config)
             .then((res) => {
                 if (res.status === 200)
                     resolve(res.data);

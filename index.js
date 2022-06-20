@@ -49,6 +49,8 @@ dotenv.config();
 require('./routes/authenticationRoutes')(app, session);
 require('./routes/diabeticRoutes')(app, session);
 require('./routes/medicineRoutes')(app, session);
+require('./routes/userRoutes')(app, session);
+require('./routes/roleRoutes')(app, session);
 
 //about page
 app.get('/', function (req, res) {

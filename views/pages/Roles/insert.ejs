@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../../partials/head'); %>
+</head>
+
+<body class="container">
+    <header>
+        <%- include('../../partials/header'); %>
+    </header>
+    <main>
+        <% if( msg.length!=0) { %>
+            <div class="alert alert-danger " role="alert">
+                <%= msg %>
+            </div>
+            <% } %>
+                <%- include('../../partials/loader'); %>
+                    <form action="/roles/insert" method="post">
+                        <div class="form-group p-2">
+                            <label class="pb-2" for="name">Name</label>
+                            <input type="text" class="form-control" name="name" placeholder="Enter Name">
+                        </div>
+                        <div class="form-group p-2">
+                            <label class="pb-2" for="description">Description</label>
+                            <input type="text" class="form-control" name="description" placeholder="Enter Description">
+                        </div>
+                        <div class="form-group p-2">
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th>Resource</th>
+                                    <th>Create</th>
+                                    <th>Read</th>
+                                    <th>Update</th>
+                                    <th>Delete</th>
+                                </tr>
+                                <tr>
+                                    <td>Medicine</td>
+                                    <td><input type="checkbox" id="chkMedicineCreate" name="chkMedicineCreate"
+                                            value="MedicineCreate"> </td>
+                                    <td><input type="checkbox" id="chkMedicineRead" name="chkMedicineRead"
+                                            value="MedicineRead"></td>
+                                    <td><input type="checkbox" id="chkMedicineUpdate" name="chkmedicineUpdate"
+                                            value="MedicineUpdate"></td>
+                                    <td><input type="checkbox" id="chkMedicineDelete" name="chkMedicineDelete"
+                                            value="MedicineDelete"></td>
+                                </tr>
+                                <tr>
+                                    <td>Visit</td>
+                                    <td><input type="checkbox" id="chkVisitCreate" name="chkVisitCreate"
+                                            value="VisitCreate"> </td>
+                                    <td><input type="checkbox" id="chkVisitRead" name="chkVisitRead"
+                                            value="VisitRead"></td>
+                                    <td><input type="checkbox" id="chkVisitUpdate" name="chkVisitUpdate"
+                                            value="VisitUpdate"></td>
+                                    <td><input type="checkbox" id="chkVisitDelete" name="chkVisitDelete"
+                                            value="VisitDelete"></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="p-2">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <a type="cancel" class="btn btn-primary" href="/">Cancel</a>
+                        </div>
+                    </form>
+    </main>
+    <footer>
+        <%- include('../../partials/footer'); %>
+    </footer>
+
+</body>
+
+</html>

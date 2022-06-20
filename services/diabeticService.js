@@ -50,7 +50,7 @@ exports.get = async function get(req) {
                 'Bearer': req.session.token
             }
         };
-        logger.info(`uri is ${process.env.BASE_URI}/user/generateToken`);
+        logger.info(`uri is ${process.env.BASE_URI}/users/generateToken`);
         axios.post(`${process.env.BASE_URI}/diabetic/get`, data, config)
             .then((res) => {
                 if (res.status === 200)

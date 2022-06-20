@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('../../partials/head'); %>
+</head>
+
+<body class="container">
+  <header>
+    <%- include('../../partials/header'); %>
+  </header>
+  <main>
+    <input class="d-none" type="text" id="apiurl" value=<%=apiurl %> >
+    <% if( msg.length!=0) { %>
+      <div class="alert alert-danger " role="alert">
+        <%= msg %>
+      </div>
+      <% } %>
+        <%- include('../../partials/loader'); %>
+          <!-- Button trigger modal -->
+          <div class="p-2">
+            <span>Name</span>
+            <input type="text" id="name" placeholder="Enter name">
+            <a href="/roles/insert" class="btn btn-primary">
+              Add New
+            </a>
+          </div>
+          <div class="container-fluid">
+            <div class="row" id="cardcontainer">
+            </div>
+          </div>
+  </main>
+  <footer>
+    <script src="/scripts/common/getData.js"></script>
+    <script src="/scripts/common/delete.js"></script>
+    <script src="/scripts/roles/search.js"></script>
+    <%- include('../../partials/footer'); %>
+  </footer>
+
+</body>
+
+</html>

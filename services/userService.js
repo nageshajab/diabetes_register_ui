@@ -11,7 +11,7 @@ exports.list = async function list(req) {
             }
         };
         var data = {};
-        axios.post(`${process.env.BASE_URI}/medicine/list`, data, config)
+        axios.post(`${process.env.BASE_URI}/users/list`, data, config)
             .then((res) => {
                 logger.info(res.status);
                 if (res.status === 200) {
@@ -49,13 +49,15 @@ exports.get = async function get(req) {
                 'Bearer': req.session.token
             }
         };
-        logger.info(`uri is ${process.env.BASE_URI}/users/generateToken`);
-        axios.post(`${process.env.BASE_URI}/medicine/get`, data, config)
+        logger.info(`uri is ${process.env.BASE_URI}/users/get`);
+        axios.post(`${process.env.BASE_URI}/users/get`, data, config)
             .then((res) => {
                 if (res.status === 200)
                     resolve(res.data);
-                else
-                    logger.error('generateToken res status is not 200');
+                else {
+                    logger.error('user get for updating status is not 200');
+                    reject('error getting user');
+                }
             })
             .catch(err => {
                 logger.error(err);
@@ -76,7 +78,7 @@ exports.get = async function get(req) {
 
 exports.delete = async function delete1(req) {
     return new Promise(function (resolve, reject) {
-        logger.info('deleting medicine ' + req.body.id);
+        logger.info('deleting user ' + req.body.id);
         const config = {
             headers: {
                 'Content-Type': 'application/json',
@@ -87,7 +89,7 @@ exports.delete = async function delete1(req) {
         var data = {
             id: req.body.id
         };
-        axios.post(`${process.env.BASE_URI}/medicine/delete`, data, config)
+        axios.post(`${process.env.BASE_URI}/users/delete`, data, config)
             .then((res) => {
                 if (res.status === 200)
                     resolve(res.data);
@@ -113,7 +115,7 @@ exports.delete = async function delete1(req) {
 
 exports.insert = async function insert(req) {
     return new Promise(function (resolve, reject) {
-        logger.info('inserting new diabetic entry ');
+        logger.info('inserting new user ');
         logger.debug(JSON.stringify(req.body));
         const config = {
             headers: {
@@ -123,14 +125,17 @@ exports.insert = async function insert(req) {
             }
         };
         var data = req.body;
-        axios.post(`${process.env.BASE_URI}/medicine/insert`, data, config)
+        axios.post(`${process.env.BASE_URI}/users/insert`, data, config)
             .then((res) => {
                 if (res.status === 200) {
                     logger.debug(`returned api status as ${res.status}`);
                     logger.debug(` ${ JSON.stringify( res.data)}`);
                     resolve(res.data);
-                } else
+                } else {
+
+                    reject('res status is not 200 , it is ' + res.status);
                     logger.error('res status is not 200');
+                }
             })
             .catch(err => {
                 logger.error(err);
@@ -151,7 +156,7 @@ exports.insert = async function insert(req) {
 
 exports.update = async function update(req) {
     return new Promise(function (resolve, reject) {
-        logger.info('updating diabetic entry ');
+        logger.info('updating user ');
         logger.debug(JSON.stringify(req.body));
         const config = {
             headers: {
@@ -161,7 +166,7 @@ exports.update = async function update(req) {
             }
         };
         var data = req.body;
-        axios.post(`${process.env.BASE_URI}/medicine/update`, data, config)
+        axios.post(`${process.env.BASE_URI}/users/update`, data, config)
             .then((res) => {
                 if (res.status === 200) {
                     logger.debug(`returned api status as ${res.status}`);
