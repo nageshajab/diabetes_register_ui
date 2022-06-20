@@ -148,3 +148,41 @@ exports.insert = async function insert(req) {
             });
     });
 }
+
+exports.update = async function update(req) {
+    return new Promise(function (resolve, reject) {
+        logger.info('updating diabetic entry ');
+        logger.debug(JSON.stringify(req.body));
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                // 'Content-Length':'',// data.length,
+                'Bearer': req.session.token
+            }
+        };
+        var data = req.body;
+        axios.post(`${process.env.BASE_URI}/medicine/update`, data, config)
+            .then((res) => {
+                if (res.status === 200) {
+                    logger.debug(`returned api status as ${res.status}`);
+                    logger.debug(` ${ JSON.stringify( res.data)}`);
+                    resolve(res.data);
+                } else
+                    logger.error('res status is not 200');
+            })
+            .catch(err => {
+                logger.error(err);
+                if (err.response.status == 401) {
+                    reject({
+                        'status': 401,
+                        'msg': 'Unauthorized, invalid username or password'
+                    });
+                } else {
+                    reject({
+                        'status': err.response.status,
+                        'msg': String(err).substring(0, 100)
+                    });
+                }
+            });
+    });
+}

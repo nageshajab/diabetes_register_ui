@@ -101,4 +101,27 @@ module.exports = function (app,session) {
         getData();
     });
 
+    app.post('/medicine/update', middleware.validateUser, function (req, res) {
+        logger.info('103 trying to update medicine..');
+
+        const getData = async function getData() {
+            try {
+                var result = await medicineService.update(req);
+                logger.debug('106 received response from medicineService.update post ' + JSON.stringify(result));
+                res.render('pages/medicine/index', {
+                    'data': result,
+                    sessiontoken: require('../common').getSessionToken(req),
+                    'msg': '',
+                    'apiurl':process.env.BASE_URI
+                });
+            } catch (err) {
+                logger.error('107 ' + JSON.stringify(err));
+                res.render('pages/medicine/index', {
+                    'msg': err.status + err.msg,
+                    sessiontoken: require('../common').getSessionToken(req)
+                });
+            }
+        }
+        getData();
+    });
 }

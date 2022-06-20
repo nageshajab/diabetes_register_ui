@@ -14,8 +14,8 @@ var carddiv = `<div id='div@id' class="col-lg-3 m-2 card">
 </div>
 </div>`;
 
-$(document).ready(function(){
-  getData($('#apiurl').val()+ '/medicine/list','').then((data) => {
+$(document).ready(function () {
+  getData($('#apiurl').val() + '/medicine/list', '').then((data) => {
     BindData(data);
   });
 });
@@ -26,16 +26,19 @@ $('#name').on('keypress', function (e) {
     return;
   }
   var txtToSearch = $(this).val();
-  getData($('#apiurl').val()+ '/medicine/list',txtToSearch).then((data) => {
+  getData($('#apiurl').val() + '/medicine/list', txtToSearch).then((data) => {
     BindData(data);
   });
 });
-
+String.prototype.replaceAll = function(search, replacement) {
+  var target = this;
+  return target.replace(new RegExp(search, 'g'), replacement);
+};
 function BindData(data) {
-  console.log(`found ${data.length} elements`);
+  console.log(`found ${ JSON.stringify( data)} elements`);
   $('#cardcontainer').empty();
   for (let i = 0; i < data.length; i++) {
-    var card = carddiv.replace('@id', data[i]._id).replace('@name', data[i].name).replace('@content', data[i].content);
+    var card = carddiv.replaceAll('@id', data[i]._id).replace('@name', data[i].name).replaceAll('@Content', data[i].content);
 
     $('#cardcontainer').append(card);
   }
