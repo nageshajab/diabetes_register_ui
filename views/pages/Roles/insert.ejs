@@ -10,6 +10,7 @@
         <%- include('../../partials/header'); %>
     </header>
     <main>
+        <h3>Add New Role</h3>
         <% if( msg.length!=0) { %>
             <div class="alert alert-danger " role="alert">
                 <%= msg %>
@@ -60,7 +61,7 @@
                         </div>
                         <div class="p-2">
                             <button type="submit" class="btn btn-primary">Submit</button>
-                            <a type="cancel" class="btn btn-primary" href="/">Cancel</a>
+                            <a type="cancel" class="btn btn-primary" href="/roles">Cancel</a>
                         </div>
                     </form>
     </main>

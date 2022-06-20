@@ -10,6 +10,7 @@
         <%- include('../../partials/header'); %>
     </header>
     <main>
+        <h3>Update User</h3>
         <% if( msg.length!=0) { %>
             <div class="alert alert-danger " role="alert">
                 <%= msg %>
@@ -17,7 +18,7 @@
             <% } %>
                 <%- include('../../partials/loader'); %>
                     <form action="/users/update" method="post">
-                        <input type="text" id="_id" name="_id" value=<%=data._id %> >
+                        <input class="d-none" type="text" id="_id" name="_id" value=<%=data._id %> >
                         <div class="form-group">
                             <label for="name">Name</label>
                             <input type="text" class="form-control" name="name" placeholder="Enter Name"
@@ -29,7 +30,7 @@
                                 value=<%=data.description %>>
                         </div>
                         <div class="form-group p-2">
-                            <h2>Roles</h2>
+                            <h4>Roles</h4>
                             <table class="table table-bordered">
                                 <tr>
                                     <th>Name</th>
@@ -51,7 +52,7 @@
                             </table>
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
-                        <a type="cancel" class="btn btn-primary" href="/">Cancel</a>
+                        <a type="cancel" class="btn btn-primary" href="/users">Cancel</a>
                     </form>
     </main>
     <footer>

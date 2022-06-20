@@ -12,7 +12,8 @@
         <%- include('../../partials/header'); %>
     </header>
     <main>
-        <input type="text" id="txtBaseUrl" value=<%=baseUrl %>>
+        <h3>Insert new Doctor Visit information</h3>
+        <input class="d-none" type="text" id="txtBaseUrl" value=<%=baseUrl %>>
         <% if( msg.length!=0) { %>
             <div class="alert alert-danger " role="alert">
                 <%= msg %>
@@ -58,7 +59,7 @@
                             </div>
                             <ul id="medicinelist">
                             </ul>
-                            <input name="medicines" class="" type="text" id="selectedMedicines">
+                            <input  name="medicines" class="d-none" type="text" id="selectedMedicines">
                         </div>
                         <div class="p-2">
                             <button type="submit" class="btn btn-primary ">Submit</button>

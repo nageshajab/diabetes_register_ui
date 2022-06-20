@@ -12,7 +12,8 @@
         <%- include('../../partials/header'); %>
     </header>
     <main>
-        <input type="text" id="txtBaseUrl" value=<%=baseUri %>>
+        <h3>Updating Doctor Visit Information</h3>
+        <input class="d-none" type="text" id="txtBaseUrl" value=<%=baseUri %>>
         <% if( msg.length!=0) { %>
             <div class="alert alert-danger " role="alert">
                 <%= msg %>
@@ -20,7 +21,7 @@
             <% } %>
                 <%- include('../../partials/loader'); %>
                     <form id="submitform" action="/diabetic/update" method="post">
-                        <div class="form-group p-2">
+                        <div class="form-group p-2 d-none">
                             <label class="pb-2" for="_id">Id</label>
                             <input type="text" value=<%=data._id %> class="form-control" name="_id"
                             >
@@ -68,7 +69,7 @@
                             </div>
                             <ul id="medicinelist">
                             </ul>
-                            <input class="" value=<%=data.medicines %> name="medicines" class="" type="text"
+                            <input class="d-none" value=<%=data.medicines %> name="medicines" class="" type="text"
                             id="selectedMedicines">
                         </div>
                         <div class="p-2">
