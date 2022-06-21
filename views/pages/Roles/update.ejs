@@ -42,22 +42,22 @@
                                     <td>Medicine</td>
                                     <td><input type="checkbox" <% if (data.chkMedicineCreate) { %>
                                         checked
-                                        <% } %> id="chkMedicineCreate" name="chkMedicineCreate"
+                                        <% } %> id="chkCreateMedicine" name="MedicineCreate"
                                             value="MedicineCreate">
                                     </td>
                                     <td><input type="checkbox" <% if (data.chkMedicineRead) { %>
                                         checked
-                                        <% } %> id="chkMedicineRead" name="chkMedicineRead"
+                                        <% } %> id="chkReadMedicine" name="MedicineRead"
                                             value="MedicineRead">
                                     </td>
                                     <td><input type="checkbox" <% if (data.chkmedicineUpdate) { %>
                                         checked
-                                        <% } %> id="chkMedicineUpdate" name="chkmedicineUpdate"
+                                        <% } %> id="chkUpdateMedicine" name="MedicineUpdate"
                                             value="MedicineUpdate">
                                     </td>
                                     <td><input type="checkbox" <% if (data.chkMedicineDelete) { %>
                                         checked
-                                        <% } %> id="chkMedicineDelete" name="chkMedicineDelete"
+                                        <% } %> id="chkDeleteMedicine" name="MedicineDelete"
                                             value="MedicineDelete">
                                     </td>
                                 </tr>
@@ -65,20 +65,20 @@
                                     <td>Visit</td>
                                     <td><input type="checkbox" <% if (data.chkVisitCreate) { %>
                                         checked
-                                        <% } %> id="chkVisitCreate" name="chkVisitCreate"
+                                        <% } %> id="chkCreateVisit" name="VisitCreate"
                                             value="VisitCreate">
                                     </td>
                                     <td><input type="checkbox" <% if (data.chkVisitRead) { %>
                                         checked
-                                        <% } %> id="chkVisitRead" name="chkVisitRead" value="VisitRead">
+                                        <% } %> id="chkReadVisit" name="VisitRead" value="VisitRead">
                                     </td>
                                     <td><input type="checkbox" <% if (data.chkVisitUpdate) { %>
                                         checked
-                                        <% } %>  id="chkVisitUpdate" name="chkVisitUpdate"
+                                        <% } %>  id="chkUpdateVisit" name="VisitUpdate"
                                             value="VisitUpdate"></td>
                                     <td><input type="checkbox" <% if (data.chkVisitDelete) { %>
                                         checked
-                                        <% } %> id="chkVisitDelete" name="chkVisitDelete"
+                                        <% } %> id="chkDeleteVisit" name="VisitDelete"
                                             value="VisitDelete"></td>
                                 </tr>
                             </table>
@@ -90,6 +90,7 @@
     <footer>
         <%- include('../../partials/footer'); %>
     </footer>
+    <script src="/scripts/common/checkbox.js"></script>
 </body>
 
 </html>
