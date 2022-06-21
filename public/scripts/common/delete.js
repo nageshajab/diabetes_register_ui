@@ -24,7 +24,8 @@ function deleteme(id, url) {
     request.done(function (msg) {
         $('.loader').hide();
         alert(JSON.stringify(msg));
-        $('#' +'div'+ id).remove();
+        $('#' + 'div' + id).remove();
+        $('#' + id).remove();
     });
 
     request.fail(function (jqXHR, textStatus) {
