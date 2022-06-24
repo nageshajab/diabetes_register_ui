@@ -9,7 +9,7 @@ const {
 
 module.exports = function (app, session) {
     app.get('/', middleware.validateUser, function (req, res) {
-        logger.info('trying to load diabetic index page..');
+        logger.info('trying to load visit index page..');
 
         const getData = async function getData() {
             try {
@@ -30,8 +30,8 @@ module.exports = function (app, session) {
         getData();
     });
 
-    app.post('/diabetic/delete', middleware.validateUser, function (req, res) {
-        logger.info('deleting diabetic entry in route ' + req.body.id);
+    app.post('/visit/delete', middleware.validateUser, function (req, res) {
+        logger.info('deleting visit entry in route ' + req.body.id);
         const deleteData = async function deleteData() {
             try {
                 var result = await diabeticService.delete(req);
@@ -52,13 +52,13 @@ module.exports = function (app, session) {
         deleteData();
     });
 
-    app.get('/diabetic/insert', middleware.validateUser, function (req, res) {
+    app.get('/visit/insert', middleware.validateUser, function (req, res) {
         const getData = async function getData() {
             try {
                 var medicineResult = await medicineService.list(req);
             
                 logger.debug('received medicines ' + JSON.stringify(medicineResult));
-                res.render('pages/diabetic/insert', {
+                res.render('pages/visit/insert', {
                     sessiontoken: require('../common').getSessionToken(req),
                     'msg': '',
                     'baseUrl':process.env.BASE_URI,
@@ -75,17 +75,17 @@ module.exports = function (app, session) {
         getData();
     });
 
-    app.post('/diabetic/insert', middleware.validateUser, function (req, res) {
-        logger.info('in post method of diabetic insert ');
+    app.post('/visit/insert', middleware.validateUser, function (req, res) {
+        logger.info('in post method of visit insert ');
         logger.debug('req body is ' + JSON.stringify(req.body));
         diabeticService.insert(req).then((result) => {
-            logger.debug('diabetic service insert method returned this result ' + JSON.stringify(result));
+            logger.debug('visit service insert method returned this result ' + JSON.stringify(result));
             if (result.acknowledged == true) {
                 logger.debug('101 result.acknowledged == true')
                 res.redirect('/');
             } else {
                 logger.debug('102 returning to same page as insert failed')
-                res.render('pages/diabetic/insert', {
+                res.render('pages/visit/insert', {
                     sessiontoken: require('../common').getSessionToken(req),
                     'msg': JSON.stringify(result)
                 });
@@ -93,7 +93,7 @@ module.exports = function (app, session) {
         });
     });
 
-    app.get('/diabetic/update/:id', middleware.validateUser, function (req, res) {
+    app.get('/visit/update/:id', middleware.validateUser, function (req, res) {
         logger.info('103 trying to load update page..');
 
         const getData = async function getData() {
@@ -102,7 +102,7 @@ module.exports = function (app, session) {
                
                 var result = await diabeticService.get(req);
                 logger.debug('106 received response from diabeticService.get ' + JSON.stringify(result));
-                res.render('pages/diabetic/update', {
+                res.render('pages/visit/update', {
                     data: result,
                     medicines: JSON.stringify( medicineResult),
                     sessiontoken: require('../common').getSessionToken(req),
@@ -120,17 +120,17 @@ module.exports = function (app, session) {
         getData();
     });
 
-    app.post('/diabetic/update', middleware.validateUser, function (req, res) {
-        logger.info('in post method of diabetic update ');
+    app.post('/visit/update', middleware.validateUser, function (req, res) {
+        logger.info('in post method of visit update ');
         logger.debug('req body is ' + JSON.stringify(req.body));
         diabeticService.update(req).then((result) => {
-            logger.debug('diabetic service update method returned this result ' + JSON.stringify(result));
+            logger.debug('visit service update method returned this result ' + JSON.stringify(result));
             if (result.acknowledged == true) {
                 logger.debug('101 result.acknowledged == true')
                 res.redirect('/');
             } else {
                 logger.debug('102 returning to same page as insert failed')
-                res.render('pages/diabetic/insert', {
+                res.render('pages/visit/insert', {
                     sessiontoken: require('../common').getSessionToken(req),
                     'msg': JSON.stringify(result)
                 });

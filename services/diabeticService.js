@@ -12,7 +12,7 @@ exports.list = async function list(req) {
             }
         };
         var data = {};
-        axios.post(`${process.env.BASE_URI}/diabetic/list`, data, config)
+        axios.post(`${process.env.BASE_URI}/visit/list`, data, config)
             .then((res) => {
                      logger.info(res.status);
                 if (res.status === 200) {
@@ -51,7 +51,7 @@ exports.get = async function get(req) {
             }
         };
         logger.info(`uri is ${process.env.BASE_URI}/users/generateToken`);
-        axios.post(`${process.env.BASE_URI}/diabetic/get`, data, config)
+        axios.post(`${process.env.BASE_URI}/visit/get`, data, config)
             .then((res) => {
                 if (res.status === 200)
                     resolve(res.data);
@@ -77,7 +77,7 @@ exports.get = async function get(req) {
 
 exports.delete = async function delete1(req) {
     return new Promise(function (resolve, reject) {
-        logger.info('deleting diabetic entry from service ' + req.body.id);
+        logger.info('deleting visit entry from service ' + req.body.id);
         const config = {
             headers: {
                 'Content-Type': 'application/json',
@@ -88,7 +88,7 @@ exports.delete = async function delete1(req) {
         var data = {
             id: req.body.id
         };
-        axios.post(`${process.env.BASE_URI}/diabetic/delete`, data, config)
+        axios.post(`${process.env.BASE_URI}/visit/delete`, data, config)
             .then((res) => {
                 if (res.status === 200)
                     resolve(res.data);
@@ -114,7 +114,7 @@ exports.delete = async function delete1(req) {
 
 exports.insert = async function insert(req) {
     return new Promise(function (resolve, reject) {
-         logger.info('inserting new diabetic entry ');
+         logger.info('inserting new visit entry ');
          logger.debug(JSON.stringify(req.body));
         const config = {
             headers: {
@@ -124,7 +124,7 @@ exports.insert = async function insert(req) {
             }
         };
         var data = req.body;
-        axios.post(`${process.env.BASE_URI}/diabetic/insert`, data, config)
+        axios.post(`${process.env.BASE_URI}/visit/insert`, data, config)
             .then((res) => {
                 if (res.status === 200) {
                      logger.debug(`returned api status as ${res.status}`);
@@ -152,7 +152,7 @@ exports.insert = async function insert(req) {
 
 exports.update = async function update(req) {
     return new Promise(function (resolve, reject) {
-         logger.info('updating diabetic entry ');
+         logger.info('updating visit entry ');
          logger.debug(JSON.stringify(req.body));
         const config = {
             headers: {
@@ -162,7 +162,7 @@ exports.update = async function update(req) {
             }
         };
         var data = req.body;
-        axios.post(`${process.env.BASE_URI}/diabetic/update`, data, config)
+        axios.post(`${process.env.BASE_URI}/visit/update`, data, config)
             .then((res) => {
                 if (res.status === 200) {
                      logger.debug(`returned api status as ${res.status}`);

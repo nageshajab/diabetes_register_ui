@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('../../partials/head'); %>
+    <style>
+      .container1 {
+        width: 50%;
+        height: 50%;
+        position: relative;
+      }
+
+      #loadingMessage {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+    </style>
+</head>
+
+<body class="container">
+  <header>
+    <%- include('../../partials/header'); %>
+  </header>
+  <main>
+    <h3>Weight Report</h3>
+    <input class="d-none" type="text" id="apiurl" value=<%=apiurl %> >
+    <% if( msg.length!=0) { %>
+      <div class="alert alert-danger " role="alert">
+        <%= msg %>
+      </div>
+      <% } %>
+        <%- include('../../partials/loader'); %>
+          <!-- Button trigger modal -->
+          <button id="renderBtn" onclick="getChartData('weight')">
+            Render
+          </button>
+          <div class="row">
+            <div id="loadingMessage"></div>
+            <div class="col-md-10">
+              <canvas id="myChart"></canvas>
+            </div>
+            <div class="col-md-2"
+          </div>
+  </main>
+  <footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="/scripts/reports/myChart.js"></script>
+
+    <%- include('../../partials/footer'); %>
+  </footer>
+
+</body>
+
+</html>
