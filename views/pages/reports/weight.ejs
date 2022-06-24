@@ -24,8 +24,11 @@
     <%- include('../../partials/header'); %>
   </header>
   <main>
-    <h3>Weight Report</h3>
+    <h3>
+      <%=reportType %>
+    </h3>
     <input class="d-none" type="text" id="apiurl" value=<%=apiurl %> >
+    <input class="d-none" type="text" id="reportType" value=<%=reportType %> >
     <% if( msg.length!=0) { %>
       <div class="alert alert-danger " role="alert">
         <%= msg %>
@@ -41,7 +44,7 @@
             <div class="col-md-10">
               <canvas id="myChart"></canvas>
             </div>
-            <div class="col-md-2"
+            <div class="col-md-2"></div>
           </div>
   </main>
   <footer>

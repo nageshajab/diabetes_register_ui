@@ -25,32 +25,9 @@
           <div class="container-fluid">
             <div class="row">
               <% if (typeof data !='undefined' ) { %>
-                <% for(var i=0;i < data.length;i++) { %>
-                  <div id=<%= data[i]._id %> class="col-lg-3 m-2 card">
-                    <div class="row card-body">
-                      <h5 class="card-title"><%= data[i].date.substring(0,10) %></h5>
-                      <div >
-                        <div>BloodPressurePre <%= data[i].bloodpressurepre %>
-                        </div>
-                        <div>BloodPressurePost <%= data[i].bloodpressurepost %>
-                        </div>
-                        <div>Weight <%= data[i].weight %>
-                        </div>
-                        <div>BSLF<%= data[i].bslf %>
-                        </div>
-                        <div>BSLPP <%= data[i].bslpp %>
-                        </div>
-                        <div>Diagnosis <%= data[i].diagnosis %>
-                        </div>
-                        <div> <a class="btn btn-primary pr-2" href="/diabetic/update/<%= data[i]._id %>">Update</a>
-                          <button class="btn btn-primary" type="button" id='<%= data[i]._id %>'
-                            onclick="deleteme('<%= data[i]._id %>','localhost:5001/diabetic/delete')">Delete</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                <!-- <%- include('../partials/Visit/cardview'); %> -->
+                <%- include('../partials/Visit/tableview'); %>
                   <% } %>
-                    <% } %>
             </div>
           </div>
   </main>

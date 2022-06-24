@@ -1,6 +1,6 @@
 function getChartData(param) {
     var url;
-    
+
     if (param == 'weight')
         url = $('#apiurl').val() + '/reports/weightlist';
     else if (param == "bloodsugar")
@@ -22,18 +22,26 @@ function getChartData(param) {
         var reportdata = [];
         var reportLabels = [];
         for (i = 0; i < data.length; i++) {
-            reportdata.push(data[i].weight);
+            var DataFromDataRow = readDataFromDataRow(data[i]);
+            reportdata.push(DataFromDataRow);
             reportLabels.push(data[i].date);
         }
-        // data.push(result.thisWeek);
-        // data.push(result.lastWeek);
-        //var labels = result.labels;
         renderChart(reportdata, reportLabels);
     });
     request.fail(function (jqXHR, textStatus) {
         $('.loader').hide();
         console.log(jqXHR.responseText);
     });
+}
+
+function readDataFromDataRow(data) {
+    var param = $('#reportType').val();
+    if (param == 'weight')
+        return data.weight;
+    else if (param == "bloodsugar")
+        return data.bslf;
+    else if (param == "bloodpressure")
+        return data.bloodpressurepre;
 }
 
 function renderChart(data, labels) {
@@ -49,10 +57,6 @@ function renderChart(data, labels) {
         },
     });
 }
-// $("#renderBtn").click(
-//     function () {
-//         data = [20000, 14000, 12000, 15000, 18000, 19000, 22000];
-//         labels =  ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
-//         renderChart(data, labels);
-//     }
-// );
+$(document).ready(function () {
+    getChartData($('#reportType').val());
+});

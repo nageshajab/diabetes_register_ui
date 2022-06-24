@@ -1,0 +1,41 @@
+<div class="table-responsive">
+  <table class="table">
+    <tr>
+      <th>
+        Date
+      </th>
+      <th>
+        Blood Pressure
+      </th>
+      <th>
+        Blood Sugar
+      </th>
+      <th>
+        Weight
+      </th>
+      <th></th>
+    </tr>
+    <% for(var i=0;i < data.length;i++) { %>
+      <tr id=<%=data[i]._id %>>
+        <td>
+          <%= data[i].date.substring(0,10) %>
+          </span>
+        </td>
+        <td>
+          <%= data[i].bloodpressurepre %>/<%= data[i].bloodpressurepost %>
+        </td>
+        <td>
+          <%= data[i].bslf %>/<%= data[i].bslpp %>
+        </td>
+        <td>
+          <%= data[i].weight %>
+        </td>
+        <td>
+          <a class="btn btn-primary pr-2" href="/diabetic/update/<%= data[i]._id %>">Update</a>
+          <button class="btn btn-primary" type="button" id='<%= data[i]._id %>'
+            onclick="deleteme('<%= data[i]._id %>','localhost:5001/diabetic/delete')">Delete</button>
+        </td>
+      </tr>
+      <% } %>
+  </table>
+</div>
