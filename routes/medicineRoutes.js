@@ -91,7 +91,7 @@ module.exports = function (app, session) {
                     'msg': ''
                 });
             } catch (err) {
-                logger.error('107 ' + JSON.stringify(err));
+                logger.error('107 ' + err);
                 res.render('pages/medicine/index', {
                     'msg': err.status + err.msg,
                     sessiontoken: require('../common').getSessionToken(req)
@@ -115,7 +115,8 @@ module.exports = function (app, session) {
                     'apiurl': process.env.BASE_URI
                 });
             } catch (err) {
-                logger.error('107 ' + JSON.stringify(err));
+                logger.error('107 ' + err);
+                logger.error('107 ' + err.stack);
                 res.render('pages/medicine/index', {
                     'msg': err.status + err.msg,
                     sessiontoken: require('../common').getSessionToken(req)

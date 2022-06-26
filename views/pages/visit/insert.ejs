@@ -13,14 +13,13 @@
     </header>
     <main>
         <h3>Insert new Doctor Visit information</h3>
-        <input class="d-none" type="text" id="txtBaseUrl" value=<%=baseUrl %>>
         <% if( msg.length!=0) { %>
             <div class="alert alert-danger " role="alert">
                 <%= msg %>
             </div>
             <% } %>
                 <%- include('../../partials/loader'); %>
-                    <form id="submitform" action="/diabetic/insert" method="post">
+                    <form id="submitform" action="/visit/insert" method="post">
                         <div class="form-group p-2">
                             <label for="date" class="pb-2">Date</label>
                             <input type="datetime-local" class="form-control" name="date" placeholder="Select Date">

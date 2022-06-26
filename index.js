@@ -77,3 +77,8 @@ app.listen(PORT, () => {
 //     logger.info('Server listening on port ' + `${HTTPS_PORT}`);
 //     console.log(`Server is up and running on ${HTTPS_PORT}`);
 // });
+
+process.on('uncaughtException', (err) => {
+    console.log('whoops! there was an error');
+    console.log(err);
+ });

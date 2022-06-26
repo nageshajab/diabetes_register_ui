@@ -13,14 +13,14 @@
     </header>
     <main>
         <h3>Updating Doctor Visit Information</h3>
-        <input class="d-none" type="text" id="txtBaseUrl" value=<%=baseUri %>>
+        <input class="d-none" type="text" id="apiurl" value=<%=apiurl %>>
         <% if( msg.length!=0) { %>
             <div class="alert alert-danger " role="alert">
                 <%= msg %>
             </div>
             <% } %>
                 <%- include('../../partials/loader'); %>
-                    <form id="submitform" action="/diabetic/update" method="post">
+                    <form id="submitform" action="/visit/update" method="post">
                         <div class="form-group p-2 d-none">
                             <label class="pb-2" for="_id">Id</label>
                             <input type="text" value=<%=data._id %> class="form-control" name="_id"
@@ -82,7 +82,7 @@
     <footer>
         <%- include('../../partials/footer'); %>
     </footer>
-    <script src="/scripts/diabetic/loadmedicinesInUpdate.js"></script>
+    <script src="/scripts/visit/loadmedicinesInUpdate.js"></script>
     <script src="/scripts/common/getData.js"></script>
     <script src="/scripts/medicine/autocomplete.js"></script>
     <script src="/scripts/common/common.js"></script>

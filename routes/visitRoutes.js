@@ -1,5 +1,5 @@
 var visitService = require('../services/visitService');
-var medicineService = require('../services/medicineService');
+var medicineService=require('../services/medicineService');
 var middleware = require('../middleware');
 const logger = require('../logger');
 const {
@@ -13,33 +13,39 @@ module.exports = function (app, session) {
 
         const getData = async function getData() {
             try {
-                var result = await visitService.list(req);
-                var result1 = [];
-                for (let i = 0; i < result.length; i++) {
-                    var dt = new Date(result[i].date);
-                    var obj = {
-                        _id: result[i]._id,
-                        date: dt.getDate() + '/' + (dt.getMonth() + 1) + "/" + dt.getFullYear(),
-                        bloodpressurepre: result[i].bloodpressurepre,
-                        bloodpressurepost: result[i].bloodpressurepost,
-                        weight: result[i].weight,
-                        bslf: result[i].bslf,
-                        bslpp: result[i].bslpp,
-                        diagnosis: result[i].diagnosis,
-                        medicines: result[i].medicines
-                    };
-                    logger.info(obj);
-                    result1.push(obj);
-                }
-                res.render('pages/index', {
-                    'data': result1,
-                    sessiontoken: require('../common').getSessionToken(req),
-                    'msg': ''
+                visitService.list(req).then((result) => {
+                    logger.debug('received visits from visitService ' + result.result.length);
+                    var result1 = [];
+                    for (let i = 0; i < result.result.length; i++) {
+                        var obj = result.result[i];
+                        var dt = new Date(obj.date);
+                        var obj = {
+                            _id: obj._id,
+                            date: dt.getDate() + '/' + (dt.getMonth() + 1) + "/" + dt.getFullYear(),
+                            bloodpressurepre: obj.bloodpressurepre,
+                            bloodpressurepost: obj.bloodpressurepost,
+                            weight: obj.weight,
+                            bslf: obj.bslf,
+                            bslpp: obj.bslpp,
+                            diagnosis: obj.diagnosis,
+                            medicines: obj.medicines
+                        };
+                        logger.info('getting visit List ' + JSON.stringify(obj));
+                        result1.push(obj);
+                    }
+                    res.render('pages/index', {
+                        'data': result1,
+                        sessiontoken: require('../common').getSessionToken(req),
+                        'msg': '',
+                        'apiurl': process.env.BASE_URI
+                    });
                 });
             } catch (err) {
-                res.render('pages/login', {
+                logger.error(err);
+                res.render('pages/index', {
                     'msg': err.status + err.msg,
-                    sessiontoken: require('../common').getSessionToken(req)
+                    sessiontoken: require('../common').getSessionToken(req),
+                    'apiurl': process.env.BASE_URI
                 });
             }
         }
@@ -55,13 +61,15 @@ module.exports = function (app, session) {
                 res.render('pages/index', {
                     'data': result,
                     sessiontoken: require('../common').getSessionToken(req),
-                    'msg': 'deleted '
+                    'msg': 'deleted ',
+                    'apiurl': process.env.BASE_URI
                 });
             } catch (err) {
                 logger.error(err);
                 res.render('pages/index', {
                     'msg': err.status + err.msg,
-                    sessiontoken: require('../common').getSessionToken(req)
+                    sessiontoken: require('../common').getSessionToken(req),
+                    'apiurl': process.env.BASE_URI
                 });
             }
         }
@@ -71,20 +79,21 @@ module.exports = function (app, session) {
     app.get('/visit/insert', middleware.validateUser, function (req, res) {
         const getData = async function getData() {
             try {
-                var medicineResult = await medicineService.list(req);
+                var visitResult = await visitService.list(req);
 
-                logger.debug('received medicines ' + JSON.stringify(medicineResult));
+                logger.debug('received medicines ' + JSON.stringify(visitResult));
                 res.render('pages/visit/insert', {
                     sessiontoken: require('../common').getSessionToken(req),
                     'msg': '',
-                    'baseUrl': process.env.BASE_URI,
-                    medicines: JSON.stringify(medicineResult)
+                    'apiurl': process.env.BASE_URI,
+                    medicines: JSON.stringify(visitResult)
                 });
             } catch (err) {
-                logger.error('107 ' + JSON.stringify(err));
+                logger.error('107 ' +err);
                 res.render('pages/index', {
                     'msg': err.status + err.msg,
-                    sessiontoken: require('../common').getSessionToken(req)
+                    sessiontoken: require('../common').getSessionToken(req),
+                    'apiurl': process.env.BASE_URI,
                 });
             }
         }
@@ -103,7 +112,8 @@ module.exports = function (app, session) {
                 logger.debug('102 returning to same page as insert failed')
                 res.render('pages/visit/insert', {
                     sessiontoken: require('../common').getSessionToken(req),
-                    'msg': JSON.stringify(result)
+                    'msg': JSON.stringify(result),
+                    'apiurl': process.env.BASE_URI
                 });
             }
         });
@@ -123,13 +133,14 @@ module.exports = function (app, session) {
                     medicines: JSON.stringify(medicineResult),
                     sessiontoken: require('../common').getSessionToken(req),
                     'msg': '',
-                    'baseUri': process.env.BASE_URI
+                    'apiurl': process.env.BASE_URI
                 });
             } catch (err) {
-                logger.error('107 ' + JSON.stringify(err));
+                logger.error('107 error retrieving visit id for update' +err);
                 res.render('pages/index', {
-                    'msg': err.status + err.msg,
-                    sessiontoken: require('../common').getSessionToken(req)
+                    'msg': err.status + err.msg + '107 error retrieving visit id for update',
+                    sessiontoken: require('../common').getSessionToken(req),
+                    'apiurl': process.env.BASE_URI
                 });
             }
         }
@@ -148,7 +159,8 @@ module.exports = function (app, session) {
                 logger.debug('102 returning to same page as insert failed')
                 res.render('pages/visit/insert', {
                     sessiontoken: require('../common').getSessionToken(req),
-                    'msg': JSON.stringify(result)
+                    'msg': JSON.stringify(result),
+                    'apiurl': process.env.BASE_URI
                 });
             }
         });

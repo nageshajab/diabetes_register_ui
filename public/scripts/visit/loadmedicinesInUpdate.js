@@ -1,8 +1,8 @@
 $(document).ready(function () {
 
     const medicines = $('#selectedMedicines').val().split(',');
-    const baseUri = $('#txtBaseUrl').val();
-    getData(baseUri + '/medicine/list', medicines).then((data) => {
+    const apiurl = $('#apiurl').val();
+    getData(apiurl + '/medicine/list', medicines).then((data) => {
         localStorage.setItem('medicines', JSON.stringify(data));
         for (let i = 0; i < medicines.length; i++) {
             var name = getTextfromId(medicines[i]);

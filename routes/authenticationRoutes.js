@@ -12,7 +12,8 @@ module.exports = function (app,session) {
             res.send("Welcome User <a href=\'/logout'>click to logout</a>");
         } else
             res.render('pages/login', {
-                'msg': ''
+                'msg': '',
+                'apiurl':process.env.BASE_URI
             });
     });
 

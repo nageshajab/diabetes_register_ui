@@ -31,9 +31,9 @@
           <%= data[i].weight %>
         </td>
         <td>
-          <a class="btn btn-primary pr-2" href="/diabetic/update/<%= data[i]._id %>">Update</a>
+          <a class="btn btn-primary pr-2" href="/visit/update/<%= data[i]._id %>">Update</a>
           <button class="btn btn-primary" type="button" id='<%= data[i]._id %>'
-            onclick="deleteme('<%= data[i]._id %>','localhost:5001/diabetic/delete')">Delete</button>
+            onclick="deleteme('<%= data[i]._id %>','localhost:5001/visit/delete')">Delete</button>
         </td>
       </tr>
       <% } %>

@@ -11,8 +11,8 @@
   </header>
   <main>
     <h3>Medicine List</h3>
-    <input class="d-none" type="text" id="apiurl" value=<%=apiurl %> >
-    <% if( msg.length!=0) { %>
+   
+    <% if(typeof msg !='number' && msg.length!=0) { %>
       <div class="alert alert-danger " role="alert">
         <%= msg %>
       </div>

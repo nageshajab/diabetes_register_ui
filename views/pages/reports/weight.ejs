@@ -27,7 +27,7 @@
     <h3>
       <%=reportType %>
     </h3>
-    <input class="d-none" type="text" id="apiurl" value=<%=apiurl %> >
+
     <input class="d-none" type="text" id="reportType" value=<%=reportType %> >
     <% if( msg.length!=0) { %>
       <div class="alert alert-danger " role="alert">
@@ -36,9 +36,7 @@
       <% } %>
         <%- include('../../partials/loader'); %>
           <!-- Button trigger modal -->
-          <button id="renderBtn" onclick="getChartData('weight')">
-            Render
-          </button>
+        
           <div class="row">
             <div id="loadingMessage"></div>
             <div class="col-md-10">
@@ -48,7 +46,7 @@
           </div>
   </main>
   <footer>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="/scripts/reports/myChart.js"></script>
 

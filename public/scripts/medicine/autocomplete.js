@@ -1,9 +1,9 @@
 $('#medicine').on('keypress', function (e) {
     var medicine = $("#medicine").val();
-    var baseUri = $('#txtBaseUrl').val();
+    var apiurl = $('#apiurl').val();
 
     if (e.which == 13) {
-        getData(baseUri + '/medicine/list', medicine).then((data) => {
+        getData(apiurl + '/medicine/list', medicine).then((data) => {
             localStorage.setItem('medicines', JSON.stringify(data));
             const medicines = [];
             for (let i = 0; i < data.length; i++) {
