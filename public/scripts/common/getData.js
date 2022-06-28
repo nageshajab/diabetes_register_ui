@@ -21,7 +21,7 @@ function getData(url, txtToSearch) {
         });
         request.fail(function (jqXHR, textStatus) {
             $('.loader').hide();
-            reject(jqXHR.responseText);
+            reject(jqXHR.responseText, jqXHR);
         });
     });
 }

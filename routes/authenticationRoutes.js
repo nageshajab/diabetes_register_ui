@@ -18,14 +18,15 @@ module.exports = function (app,session) {
     });
 
     app.post('/login', function (req, res) {
-        logger.debug('110 post login ' + req.body.username + ' ' + req.body.password);
+        logger.debug('110 in post login ' + req.body.username + ' ' + req.body.password);
         const generateToken = async function generateToken() {
             try {
                 var result = await userService.generateToken(req.body.username, req.body.password);
-                logger.info('result is ' + result);
+                logger.info('result is ' +JSON.stringify( result));
                 session=req.session;
                 session.userid=req.body.username;
-                session.token=result;
+                session.token=result.token;
+                session.roles=result.roles;
                 res.redirect('/');
             } catch (err) {
                 res.render('pages/login', {

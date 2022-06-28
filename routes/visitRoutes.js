@@ -1,5 +1,5 @@
 var visitService = require('../services/visitService');
-var medicineService=require('../services/medicineService');
+var medicineService = require('../services/medicineService');
 var middleware = require('../middleware');
 const logger = require('../logger');
 const {
@@ -39,6 +39,8 @@ module.exports = function (app, session) {
                         'msg': '',
                         'apiurl': process.env.BASE_URI
                     });
+                }).catch(error => {
+                    console.error(error);
                 });
             } catch (err) {
                 logger.error(err);
@@ -89,7 +91,7 @@ module.exports = function (app, session) {
                     medicines: JSON.stringify(visitResult)
                 });
             } catch (err) {
-                logger.error('107 ' +err);
+                logger.error('107 ' + err);
                 res.render('pages/index', {
                     'msg': err.status + err.msg,
                     sessiontoken: require('../common').getSessionToken(req),
@@ -136,7 +138,7 @@ module.exports = function (app, session) {
                     'apiurl': process.env.BASE_URI
                 });
             } catch (err) {
-                logger.error('107 error retrieving visit id for update' +err);
+                logger.error('107 error retrieving visit id for update' + err);
                 res.render('pages/index', {
                     'msg': err.status + err.msg + '107 error retrieving visit id for update',
                     sessiontoken: require('../common').getSessionToken(req),
