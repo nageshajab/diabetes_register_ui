@@ -1,4 +1,8 @@
 const axios = require('axios');
+const res = require('express/lib/response');
+const {
+    type
+} = require('express/lib/response');
 const logger = require('../logger');
 const common = require('./common');
 
@@ -17,14 +21,11 @@ exports.list = async function list(req) {
             })
             .catch(err => {
                 logger.error(err);
-                if (err.response != undefined && err.response.status == 401) {
-                    reject({
-                        'status': 401,
-                        'msg': 'Unauthorized, invalid username or password'
-                    });
+                if (typeof err.response != 'undefined' && err.response.status == 401) {
+                    res.redirect('/pages/login');
                 } else {
                     var status = 'undefined status';
-                    if (err.response != undefined)
+                    if (typeof err.response != 'undefined')
                         status = err.response.status;
                     reject({
                         'status': status,
@@ -54,14 +55,17 @@ exports.get = async function get(req) {
             })
             .catch(err => {
                 logger.error(err);
-                if (err.response.status == 401) {
+                if (typeof err.response != 'undefined' && err.response.status == 401) {
                     reject({
                         'status': 401,
                         'msg': 'Unauthorized, invalid username or password'
                     });
                 } else {
+                    var status = 'unknown status';
+                    if (typeof err.response != 'undefined')
+                        status = err.response.status;
                     reject({
-                        'status': err.response.status,
+                        'status': status,
                         'msg': String(err).substring(0, 100)
                     });
                 }

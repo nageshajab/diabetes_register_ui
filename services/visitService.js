@@ -4,7 +4,7 @@ const req = require('express/lib/request');
 const common = require('./common');
 
 exports.list = async function list(req) {
-    
+
     return new Promise(function (resolve, reject) {
         logger.info('inside visit list service2');
         const config1 = common.getAxiosConfig(req);
@@ -14,9 +14,9 @@ exports.list = async function list(req) {
             .then((res) => {
                 logger.info(res.status);
                 if (res.status === 200) {
-                    logger.debug(JSON.stringify( res.data));
+                    logger.debug(JSON.stringify(res.data));
                     resolve(res.data);
-                }else{
+                } else {
                     reject('res status is not 200 ');
                 }
             })
@@ -48,13 +48,13 @@ exports.get = async function get(req) {
         const data = JSON.stringify({
             id: req.params.id
         });
-        const config =common.getAxiosConfig(req);
+        const config = common.getAxiosConfig(req);
         logger.info(`uri is ${process.env.BASE_URI}/users/generateToken`);
         axios.post(`${process.env.BASE_URI}/visit/get`, data, config)
             .then((res) => {
                 if (res.status === 200)
                     resolve(res.data);
-                else{
+                else {
                     logger.error('generateToken res status is not 200');
                     reject('res staus is not 200');
                 }
@@ -87,7 +87,7 @@ exports.delete = async function delete1(req) {
             .then((res) => {
                 if (res.status === 200)
                     resolve(res.data);
-                else{
+                else {
                     logger.error('res status is not 200');
                     reject('res status is not 200');
                 }
@@ -113,7 +113,7 @@ exports.insert = async function insert(req) {
     return new Promise(function (resolve, reject) {
         logger.info('inserting new visit entry ');
         logger.debug(JSON.stringify(req.body));
-        const config =common.getAxiosConfig(req);
+        const config = common.getAxiosConfig(req);
         var data = req.body;
         axios.post(`${process.env.BASE_URI}/visit/insert`, data, config)
             .then((res) => {
@@ -121,7 +121,7 @@ exports.insert = async function insert(req) {
                     logger.debug(`returned api status as ${res.status}`);
                     logger.debug(` ${ JSON.stringify( res.data)}`);
                     resolve(res.data);
-                } else{
+                } else {
                     logger.error('res status is not 200');
                     reject('res status is not 200');
                 }
@@ -155,7 +155,7 @@ exports.update = async function update(req) {
                     logger.debug(`returned api status as ${res.status}`);
                     logger.debug(` ${ JSON.stringify( res.data)}`);
                     resolve(res.data);
-                } else{
+                } else {
                     reject('res status is not 200');
                     logger.error('res status is not 200');
                 }
@@ -168,8 +168,11 @@ exports.update = async function update(req) {
                         'msg': 'Unauthorized, invalid username or password'
                     });
                 } else {
+                    var status = 'unknown status';
+                    if (typeof err.response != 'undefined')
+                        status = err.response.status;
                     reject({
-                        'status': err.response.status,
+                        'status': status,
                         'msg': String(err).substring(0, 100)
                     });
                 }

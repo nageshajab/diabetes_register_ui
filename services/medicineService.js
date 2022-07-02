@@ -16,14 +16,17 @@ exports.list = async function list(req) {
             })
             .catch(err => {
                 logger.error(err);
-                if (err.response != undefined && err.response.status == 401) {
+                if (typeof err.response != 'undefined' && err.response.status == 401) {
                     reject({
                         'status': 401,
                         'msg': 'Unauthorized, invalid username or password'
                     });
                 } else {
+                    var status = 'unknown status';
+                    if (typeof err.response != 'undefined')
+                        status = err.response.status;
                     reject({
-                        'status': err.response.status,
+                        'status': status,
                         'msg': String(err).substring(0, 100)
                     });
                 }

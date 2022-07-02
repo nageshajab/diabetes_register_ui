@@ -6,7 +6,7 @@ const common = require('./common');
 var logger = require('./logger');
 const bodyParser = require('body-parser')
 //const https = require('https');
-const http=require('http');
+const http = require('http');
 const fs = require('fs');
 
 const options = {
@@ -66,11 +66,11 @@ app.get('/about', function (req, res) {
 //start listening on port
 let PORT = process.env.PORT || 5000;
 //var HTTPS_PORT=process.env.HTTPS_PORT;
-var dt=new Date();
+var dt = new Date();
 app.listen(PORT, () => {
-  logger.clearLogFiles();
-  logger.info(`Server is up and running on ${PORT}, ${dt.getHours()}:${dt.getMinutes()}`);
-  console.log(`Server is up and running on ${PORT}, ${dt.getHours()}:${dt.getMinutes()}`);
+    logger.clearLogFiles();
+    logger.info(`Server is up and running on ${PORT}, ${dt.getHours()}:${dt.getMinutes()}`);
+    console.log(`Server is up and running on ${PORT}, ${dt.getHours()}:${dt.getMinutes()}`);
 });
 
 // https.createServer(options, app).listen(`${HTTPS_PORT}`, () => {
@@ -81,4 +81,4 @@ app.listen(PORT, () => {
 process.on('uncaughtException', (err) => {
     console.log('whoops! there was an error');
     console.log(err);
- });
+});

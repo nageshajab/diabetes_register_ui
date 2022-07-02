@@ -1,6 +1,10 @@
-function insertUser() {
-    $('#chkAdmin').val();
+$(document).ready(() => {
+    $('#username').attr("value", "");
+    $('#description').attr("value", "");
+    $('#password').attr("value", "");
+});
 
+function getRoles() {
     const roles = [];
 
     if ($('#chkAdmin').prop('checked') == true)
@@ -9,15 +13,11 @@ function insertUser() {
     if ($('#chkBasic').prop('checked') == true)
         roles.push("basic");
 
+    return roles;
+}
 
-    const data = {
-        username: $('#username').val(),
-        description: $('#description').val(),
-        password: $('#password').val(),
-        roles: roles
-    };
-    alert(JSON.stringify(data));
-    return;
+function insertUser(url) {
+    var url = $('#apiurl').val() + url;
     $('.loader').show();
     var width = $(window).width();
     $('.loader').width(width / 4);
@@ -26,7 +26,13 @@ function insertUser() {
         url: url,
         type: "POST",
         data: {
-            data: txtToSearch
+            _id: $('#_id').val(),
+            username: $('#username').val(),
+            description: $('#description').val(),
+            password: $('#password').val(),
+            roles: getRoles().toString(),
+            isActive: $('#chkAdmin').prop('checked'),
+            activationDate: new Date()
         },
         headers: {
             "Bearer": $('#sessiontoken').val(),
@@ -34,9 +40,12 @@ function insertUser() {
         }
     });
     request.done(function (data) {
+        alert('success ' + JSON.stringify(data));
         $('.loader').hide();
+        window.location = "/users";
     });
     request.fail(function (jqXHR, textStatus) {
+        alert('failure ' + JSON.stringify(jqXHR));
         $('.loader').hide();
     });
 

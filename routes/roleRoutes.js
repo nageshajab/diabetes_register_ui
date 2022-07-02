@@ -6,25 +6,30 @@ const {
     json
 } = require('body-parser');
 
-module.exports = function (app,session) {
+module.exports = function (app, session) {
     app.get('/roles', middleware.validateUser, function (req, res) {
-        logger.info('trying to load role index page..'+process.env.BASE_URI);
+        var sessionVariables = common.getSessionVariables(req);
+        logger.info('trying to load role index page..' + process.env.BASE_URI);
 
         const getData = async function getData() {
             try {
                 var result = await roleService.list(req);
-                logger.debug('found list of roles '+JSON.stringify(result));
+                logger.debug('found list of roles ' + JSON.stringify(result));
                 res.render('pages/roles/index', {
                     'data': result,
-                    sessiontoken: require('../common').getSessionToken(req),
+                    sessiontoken: sessionVariables.sessiontoken,
+                    username: sessionVariables.username,
+                    roles: sessionVariables.roles,
                     'msg': '',
-                    'apiurl':process.env.BASE_URI
+                    'apiurl': process.env.BASE_URI
                 });
             } catch (err) {
                 res.render('pages/roles/index', {
                     'msg': err.status + err.msg,
-                    sessiontoken: require('../common').getSessionToken(req),
-                    'apiurl':process.env.BASE_URI
+                    sessiontoken: sessionVariables.sessiontoken,
+                    username: sessionVariables.username,
+                    roles: sessionVariables.roles,
+                    'apiurl': process.env.BASE_URI
                 });
             }
         }
@@ -32,6 +37,7 @@ module.exports = function (app,session) {
     });
 
     app.post('/roles/delete', middleware.validateUser, function (req, res) {
+        var sessionVariables = common.getSessionVariables(req);
         logger.info(req.body.id);
         const deleteData = async function deleteData() {
             try {
@@ -39,14 +45,18 @@ module.exports = function (app,session) {
                 logger.info('result is ' + JSON.stringify(result));
                 res.render('pages/roles/index', {
                     'data': result,
-                    sessiontoken: require('../common').getSessionToken(req),
+                    sessiontoken: sessionVariables.sessiontoken,
+                    username: sessionVariables.username,
+                    roles: sessionVariables.roles,
                     'msg': 'deleted '
                 });
             } catch (err) {
                 logger.error(err);
                 res.render('pages/roles/index', {
                     'msg': err.status + err.msg,
-                    sessiontoken: require('../common').getSessionToken(req)
+                    sessiontoken: sessionVariables.sessiontoken,
+                    username: sessionVariables.username,
+                    roles: sessionVariables.roles,
                 });
             }
         }
@@ -54,13 +64,17 @@ module.exports = function (app,session) {
     });
 
     app.get('/roles/insert', middleware.validateUser, function (req, res) {
+        var sessionVariables = common.getSessionVariables(req);
         res.render('pages/roles/insert', {
-            sessiontoken: require('../common').getSessionToken(req),
+            sessiontoken: sessionVariables.sessiontoken,
+            username: sessionVariables.username,
+            roles: sessionVariables.roles,
             'msg': ''
         });
     });
 
     app.post('/roles/insert', middleware.validateUser, function (req, res) {
+        var sessionVariables = common.getSessionVariables(req);
         logger.info('in post method of role insert ');
         logger.debug('role insert: req body is ' + JSON.stringify(req.body));
         roleService.insert(req).then((result) => {
@@ -71,7 +85,9 @@ module.exports = function (app,session) {
             } else {
                 logger.debug('102 returning to same page as insert failed')
                 res.render('pages/roles/insert', {
-                    sessiontoken: require('../common').getSessionToken(req),
+                    sessiontoken: sessionVariables.sessiontoken,
+                    username: sessionVariables.username,
+                    roles: sessionVariables.roles,
                     'msg': JSON.stringify(result)
                 });
             }
@@ -79,6 +95,7 @@ module.exports = function (app,session) {
     });
 
     app.get('/roles/update/:id', middleware.validateUser, function (req, res) {
+        var sessionVariables = common.getSessionVariables(req);
         logger.info('103 trying to load role update page..');
 
         const getData = async function getData() {
@@ -87,14 +104,18 @@ module.exports = function (app,session) {
                 logger.debug('106 received response from roleService.get ' + JSON.stringify(result));
                 res.render('pages/roles/update', {
                     'data': result,
-                    sessiontoken: require('../common').getSessionToken(req),
+                    sessiontoken: sessionVariables.sessiontoken,
+                    username: sessionVariables.username,
+                    roles: sessionVariables.roles,
                     'msg': ''
                 });
             } catch (err) {
                 logger.error('107 ' + err);
                 res.render('pages/roles/index', {
                     'msg': err.status + err.msg,
-                    sessiontoken: require('../common').getSessionToken(req)
+                    sessiontoken: sessionVariables.sessiontoken,
+                    username: sessionVariables.username,
+                    roles: sessionVariables.roles,
                 });
             }
         }
@@ -102,6 +123,7 @@ module.exports = function (app,session) {
     });
 
     app.post('/roles/update', middleware.validateUser, function (req, res) {
+        var sessionVariables = common.getSessionVariables(req);
         logger.info('103 trying to update role..');
 
         const getData = async function getData() {
@@ -110,15 +132,19 @@ module.exports = function (app,session) {
                 logger.debug('106 received response from roleService.update post ' + JSON.stringify(result));
                 res.render('pages/roles/index', {
                     'data': result,
-                    sessiontoken: require('../common').getSessionToken(req),
+                    sessiontoken: sessionVariables.sessiontoken,
+                    username: sessionVariables.username,
+                    roles: sessionVariables.roles,
                     'msg': '',
-                    'apiurl':process.env.BASE_URI
+                    'apiurl': process.env.BASE_URI
                 });
             } catch (err) {
-                logger.error('107 ' +err);
+                logger.error('107 ' + err);
                 res.render('pages/roles/index', {
                     'msg': err.status + err.msg,
-                    sessiontoken: require('../common').getSessionToken(req)
+                    sessiontoken: sessionVariables.sessiontoken,
+                    username: sessionVariables.username,
+                    roles: sessionVariables.roles,
                 });
             }
         }

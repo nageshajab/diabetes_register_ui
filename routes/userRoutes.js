@@ -1,30 +1,35 @@
 var userService = require('../services/userService');
 var middleware = require('../middleware');
 const logger = require('../logger');
+const common=require('../common');
 const {
     urlencoded,
     json
 } = require('body-parser');
 
-module.exports = function (app,session) {
+module.exports = function (app, session) {
     app.get('/users', middleware.validateUser, function (req, res) {
-        logger.info('trying to load user index page..'+process.env.BASE_URI);
-
+        logger.info('trying to load user index page..' + process.env.BASE_URI);
+        var sessionVariables = common.getSessionVariables(req);
         const getData = async function getData() {
             try {
                 var result = await userService.list(req);
-               // logger.debug('found list of users '+JSON.stringify(result));
+                // logger.debug('found list of users '+JSON.stringify(result));
                 res.render('pages/users/index', {
                     'data': result,
-                    sessiontoken: require('../common').getSessionToken(req),
+                    sessiontoken: sessionVariables.sessiontoken,
+                    username: sessionVariables.username,
+                    roles: sessionVariables.roles,
                     'msg': '',
-                    'apiurl':process.env.BASE_URI
+                    'apiurl': process.env.BASE_URI
                 });
             } catch (err) {
                 res.render('pages/users/index', {
                     'msg': err.status + err.msg,
-                    sessiontoken: require('../common').getSessionToken(req),
-                    'apiurl':process.env.BASE_URI
+                    sessiontoken: sessionVariables.sessiontoken,
+                    username: sessionVariables.username,
+                    roles: sessionVariables.roles,
+                    'apiurl': process.env.BASE_URI
                 });
             }
         }
@@ -32,6 +37,7 @@ module.exports = function (app,session) {
     });
 
     app.post('/users/delete', middleware.validateUser, function (req, res) {
+        var sessionVariables = common.getSessionVariables(req);
         logger.info(req.body.id);
         const deleteData = async function deleteData() {
             try {
@@ -39,14 +45,18 @@ module.exports = function (app,session) {
                 logger.info('result is ' + JSON.stringify(result));
                 res.render('pages/users/index', {
                     'data': result,
-                    sessiontoken: require('../common').getSessionToken(req),
+                    sessiontoken: sessionVariables.sessiontoken,
+                    username: sessionVariables.username,
+                    roles: sessionVariables.roles,
                     'msg': 'deleted '
                 });
             } catch (err) {
                 logger.error(err);
                 res.render('pages/users/index', {
                     'msg': err.status + err.msg,
-                    sessiontoken: require('../common').getSessionToken(req)
+                    sessiontoken: sessionVariables.sessiontoken,
+                    username: sessionVariables.username,
+                    roles: sessionVariables.roles,
                 });
             }
         }
@@ -54,14 +64,18 @@ module.exports = function (app,session) {
     });
 
     app.get('/users/insert', middleware.validateUser, function (req, res) {
+        var sessionVariables = common.getSessionVariables(req);
         res.render('pages/users/insert', {
-            sessiontoken: require('../common').getSessionToken(req),
+            sessiontoken: sessionVariables.sessiontoken,
+            username: sessionVariables.username,
+            roles: sessionVariables.roles,
             'msg': '',
-            'apiurl':process.env.BASE_URI
+            'apiurl': process.env.BASE_URI
         });
     });
 
     app.post('/users/insert', middleware.validateUser, function (req, res) {
+        var sessionVariables = common.getSessionVariables(req);
         logger.info('in post method of user insert ');
         logger.debug('req body is ' + JSON.stringify(req.body));
         userService.insert(req).then((result) => {
@@ -72,7 +86,9 @@ module.exports = function (app,session) {
             } else {
                 logger.debug('102 returning to same page as insert failed')
                 res.render('pages/users/insert', {
-                    sessiontoken: require('../common').getSessionToken(req),
+                    sessiontoken: sessionVariables.sessiontoken,
+                    username: sessionVariables.username,
+                    roles: sessionVariables.roles,
                     'msg': JSON.stringify(result)
                 });
             }
@@ -81,23 +97,28 @@ module.exports = function (app,session) {
 
     app.get('/users/update/:id', middleware.validateUser, function (req, res) {
         logger.info('103 trying to load user update page..');
-
+        var sessionVariables = common.getSessionVariables(req);
         const getData = async function getData() {
             try {
                 var result = await userService.get(req);
+
                 logger.debug('106 received response from userService.get ' + JSON.stringify(result));
                 res.render('pages/users/update', {
                     'data': result,
-                    sessiontoken: require('../common').getSessionToken(req),
+                    sessiontoken: sessionVariables.sessiontoken,
+                    username: sessionVariables.username,
+                    roles: sessionVariables.roles,
                     'msg': '',
-                    'apiurl':process.env.BASE_URI
+                    'apiurl': process.env.BASE_URI
                 });
             } catch (err) {
                 logger.error('107 ' + err);
                 res.render('pages/users/index', {
                     'msg': err.status + err.msg,
-                    sessiontoken: require('../common').getSessionToken(req),
-                    'apiurl':process.env.BASE_URI
+                    sessiontoken: sessionVariables.sessiontoken,
+                    username: sessionVariables.username,
+                    roles: sessionVariables.roles,
+                    'apiurl': process.env.BASE_URI
                 });
             }
         }
@@ -106,23 +127,27 @@ module.exports = function (app,session) {
 
     app.post('/users/update', middleware.validateUser, function (req, res) {
         logger.info('103 trying to update user..');
-
+        var sessionVariables = common.getSessionVariables(req);
         const getData = async function getData() {
             try {
                 var result = await userService.update(req);
                 logger.debug('106 received response from userService.update post ' + JSON.stringify(result));
                 res.render('pages/users/index', {
                     'data': result,
-                    sessiontoken: require('../common').getSessionToken(req),
+                    sessiontoken: sessionVariables.sessiontoken,
+                    username: sessionVariables.username,
+                    roles: sessionVariables.roles,
                     'msg': '',
-                    'apiurl':process.env.BASE_URI
+                    'apiurl': process.env.BASE_URI
                 });
             } catch (err) {
                 logger.error('107 ' + err);
                 res.render('pages/users/index', {
                     'msg': err.status + err.msg,
-                    sessiontoken: require('../common').getSessionToken(req),
-                    'apiurl':process.env.BASE_URI
+                    sessiontoken: sessionVariables.sessiontoken,
+                    username: sessionVariables.username,
+                    roles: sessionVariables.roles,
+                    'apiurl': process.env.BASE_URI
                 });
             }
         }

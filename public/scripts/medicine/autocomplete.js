@@ -26,11 +26,9 @@ function addmedicine() {
     var id = getIdfromText(medicine);
 
     if (typeof id == 'undefined' || id == '') {
-        //        console.log('id is undefined or empty');
         return;
     }
 
-    //    console.log('id is ' + id);
     var selectedmedicines = $('#selectedMedicines').val();
 
     if (!selectedmedicines.includes(id))
@@ -68,21 +66,17 @@ function setSelectedMedicineTxt(selectedmedicines) {
         }
     }
     $('#selectedMedicines').val(parsedVal);
-    //    console.log('wada'+$('#selectedMedicines').val());
 }
 
 function getIdfromText(name) {
-    //   console.log('inside get id from text');
 
     var data = localStorage.getItem('medicines');
 
     if (typeof data == 'undefined' || data == null) {
-        //       console.log('localstorage item medicines is empty');
         return;
     }
     data = JSON.parse(data);
     for (let i = 0; i < data.length; i++) {
-        //        console.log(data[i].name + name);
         if (data[i].name == name) {
             return data[i]._id;
         }

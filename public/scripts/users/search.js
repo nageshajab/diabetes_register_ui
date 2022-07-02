@@ -1,7 +1,7 @@
 var carddiv = `<div id='div@id' class="col-lg-3 m-2 card">
 <div class="row card-body">
   <h5 class="card-title">
-    @name
+    @username
   </h5>
   <div>
     <div>@description
@@ -47,7 +47,7 @@ function BindData(data) {
   //  console.log(`found ${ JSON.stringify( data)} elements`);
   $('#cardcontainer').empty();
   for (let i = 0; i < data.length; i++) {
-    var card = carddiv.replaceAll('@id', data[i]._id).replace('@name', data[i].name).replaceAll('@description', data[i].description);
+    var card = carddiv.replaceAll('@id', data[i]._id).replace('@username', data[i].username).replaceAll('@description', data[i].description);
 
     $('#cardcontainer').append(card);
   }

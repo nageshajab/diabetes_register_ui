@@ -4,7 +4,7 @@ const res = require("express/lib/response");
 const common=require('./common');
 
 exports.validateUser = function (req, res, next) {
-    if (req.session.token === undefined || req.session.token == '') {
+    if (typeof req.session.token == 'undefined' || req.session.token == '') {
         res.redirect('/login');
     } else {
         next();

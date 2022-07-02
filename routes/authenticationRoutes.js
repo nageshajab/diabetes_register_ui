@@ -24,14 +24,18 @@ module.exports = function (app,session) {
                 var result = await userService.generateToken(req.body.username, req.body.password);
                 logger.info('result is ' +JSON.stringify( result));
                 session=req.session;
-                session.userid=req.body.username;
+                session.username=req.body.username;
                 session.token=result.token;
                 session.roles=result.roles;
+                console.log('roles received in login post '+result.roles);
+                session.roles=result.roles;
+
                 res.redirect('/');
             } catch (err) {
+                console.log(err);
+                console.log('inside error of login post');
                 res.render('pages/login', {
-                    'msg': err.status + err.msg,
-                    sessiontoken: require('../common').getSessionToken(req)
+                    'msg': err.status + err.msg
                 });
             }
         }

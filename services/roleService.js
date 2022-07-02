@@ -4,7 +4,7 @@ const common = require('./common');
 
 exports.list = async function list(req) {
     return new Promise(function (resolve, reject) {
-       
+
         const config = common.getAxiosConfig(req);
         var data = {};
         axios.post(`${process.env.BASE_URI}/roles/list`, data, config)
@@ -12,21 +12,24 @@ exports.list = async function list(req) {
                 logger.info(res.status);
                 if (res.status === 200) {
                     resolve(res.data);
-                }else{
+                } else {
                     reject('res status is not 200');
                 }
 
             })
             .catch(err => {
                 logger.error(err);
-                if (err.response != undefined && err.response.status == 401) {
+                if (typeof err.response != 'undefined' && err.response.status == 401) {
                     reject({
                         'status': 401,
                         'msg': 'Unauthorized, invalid username or password'
                     });
                 } else {
+                    var status = 'unknown status';
+                    if (typeof err.response != 'undefined')
+                        status = err.response.status;
                     reject({
-                        'status': err.response.status,
+                        'status': status,
                         'msg': String(err).substring(0, 100)
                     });
                 }
@@ -46,7 +49,7 @@ exports.get = async function get(req) {
             .then((res) => {
                 if (res.status === 200)
                     resolve(res.data);
-                else{
+                else {
                     logger.error('generateToken res status is not 200');
                     reject('res status is not 200');
                 }
@@ -79,7 +82,7 @@ exports.delete = async function delete1(req) {
             .then((res) => {
                 if (res.status === 200)
                     resolve(res.data);
-                else{
+                else {
                     logger.error('res status is not 200');
                     reject('res status is not 200');
                 }
@@ -148,7 +151,7 @@ exports.update = async function update(req) {
                     logger.debug(`returned api status as ${res.status}`);
                     logger.debug(` ${ JSON.stringify( res.data)}`);
                     resolve(res.data);
-                } else{
+                } else {
                     logger.error('res status is not 200');
                     reject('res status is not 200');
                 }
