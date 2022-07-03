@@ -56,14 +56,17 @@ exports.get = async function get(req) {
             })
             .catch(err => {
                 logger.error(err);
-                if (err.response.status == 401) {
+                var status = '';
+                if (typeof err.response != 'undefined')
+                    status = err.response.status;
+                if (status == 401) {
                     reject({
                         'status': 401,
                         'msg': 'Unauthorized, invalid username or password'
                     });
                 } else {
                     reject({
-                        'status': err.response.status,
+                        'status': status,
                         'msg': String(err).substring(0, 100)
                     });
                 }

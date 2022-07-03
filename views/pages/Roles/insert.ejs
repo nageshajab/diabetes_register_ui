@@ -11,64 +11,92 @@
     </header>
     <main>
         <h3>Add New Role</h3>
+
         <% if( msg.length!=0) { %>
             <div class="alert alert-danger " role="alert">
                 <%= msg %>
             </div>
             <% } %>
                 <%- include('../../partials/loader'); %>
-                    <form action="/roles/insert" method="post">
-                        <div class="form-group p-2">
-                            <label class="pb-2" for="name">Name</label>
-                            <input type="text" class="form-control" name="name" placeholder="Enter Name">
-                        </div>
-                        <div class="form-group p-2">
-                            <label class="pb-2" for="description">Description</label>
-                            <input type="text" class="form-control" name="description" placeholder="Enter Description">
-                        </div>
-                        <div class="form-group p-2">
-                            <table class="table table-bordered">
-                                <tr>
-                                    <th>Resource</th>
-                                    <th>Create</th>
-                                    <th>Read</th>
-                                    <th>Update</th>
-                                    <th>Delete</th>
-                                </tr>
-                                <tr>
-                                    <td>Medicine</td>
-                                    <td><input type="checkbox" id="chkCreateMedicine" name="MedicineCreate"
-                                            value="MedicineCreate"> </td>
-                                    <td><input type="checkbox" id="chkReadMedicine" name="MedicineRead" value="MedicineRead">
-                                    </td>
-                                    <td><input type="checkbox" id="chkUpdateMedicine" name="MedicineUpdate"
-                                            value="MedicineUpdate"></td>
-                                    <td><input type="checkbox" id="chkDeleteMedicine" name="MedicineDelete"
-                                            value="MedicineDelete"></td>
-                                </tr>
-                                <tr>
-                                    <td>Visit</td>
-                                    <td><input type="checkbox" id="chkCreateVisit" name="VisitCreate" value="VisitCreate">
-                                    </td>
-                                    <td><input type="checkbox" id="chkReadVisit" name="VisitRead" value="VisitRead">
-                                    </td>
-                                    <td><input type="checkbox" id="chkUpdateVisit" name="VisitUpdate" value="VisitUpdate">
-                                    </td>
-                                    <td><input type="checkbox" id="chkDeleteVisit" name="VisitDelete"
-                                            value="VisitDelete"></td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="p-2">
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                            <a type="cancel" class="btn btn-primary" href="/roles">Cancel</a>
-                        </div>
-                    </form>
+                    <div class="form-group p-2">
+                        <label class="pb-2" for="name">Name</label>
+                        <input type="text" id="name" class="form-control" name="name" placeholder="Enter Name">
+                    </div>
+                    <div class="form-group p-2">
+                        <label class="pb-2" for="description">Description</label>
+                        <input type="text" id="description" class="form-control" name="description"
+                            placeholder="Enter Description">
+                    </div>
+                    <div class="form-group p-2" id="checkboxes">
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>Resource</th>
+                                <th>Create</th>
+                                <th>Read</th>
+                                <th>Update</th>
+                                <th>Delete</th>
+                            </tr>
+                            <tr>
+                                <td>Medicine</td>
+                                <td><input type="checkbox" id="chkCreateMedicine" name="MedicineCreate"
+                                        value="MedicineCreate"> </td>
+                                <td><input type="checkbox" id="chkReadMedicine" name="MedicineRead"
+                                        value="MedicineRead">
+                                </td>
+                                <td><input type="checkbox" id="chkUpdateMedicine" name="MedicineUpdate"
+                                        value="MedicineUpdate"></td>
+                                <td><input type="checkbox" id="chkDeleteMedicine" name="MedicineDelete"
+                                        value="MedicineDelete"></td>
+                            </tr>
+                            <tr>
+                                <td>Visit</td>
+                                <td><input type="checkbox" id="chkCreateVisit" name="VisitCreate" value="VisitCreate">
+                                </td>
+                                <td><input type="checkbox" id="chkReadVisit" name="VisitRead" value="VisitRead">
+                                </td>
+                                <td><input type="checkbox" id="chkUpdateVisit" name="VisitUpdate" value="VisitUpdate">
+                                </td>
+                                <td><input type="checkbox" id="chkDeleteVisit" name="VisitDelete" value="VisitDelete">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>User</td>
+                                <td><input type="checkbox" id="chkCreateUser" name="UserCreate" value="UserCreate">
+                                </td>
+                                <td><input type="checkbox" id="chkReadUser" name="UserRead" value="UserRead">
+                                </td>
+                                <td><input type="checkbox" id="chkUpdateUser" name="UserUpdate" value="UserUpdate"></td>
+                                <td><input type="checkbox" id="chkDeleteUser" name="UserDelete" value="UserDelete"></td>
+                            </tr>
+                            <tr>
+                                <td>Role</td>
+                                <td><input type="checkbox" id="chkCreateRole" name="RoleCreate" value="RoleCreate">
+                                </td>
+                                <td><input type="checkbox" id="chkReadRole" name="RoleRead" value="RoleRead">
+                                </td>
+                                <td><input type="checkbox" id="chkUpdateRole" name="RoleUpdate" value="RoleUpdate">
+                                </td>
+                                <td><input type="checkbox" id="chkDeleteRole" name="RoleDelete" value="RoleDelete"></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="p-2">
+                        <button type="button" onclick="insertRole('/roles/insert')" id="btnSubmit"
+                            class="btn btn-primary">Submit</button>
+                        <a type="cancel" class="btn btn-primary" href="/roles">Cancel</a>
+                    </div>
     </main>
     <footer>
         <%- include('../../partials/footer'); %>
     </footer>
     <script src="/scripts/common/checkbox.js"></script>
+    <script src="/scripts/roles/insert.js"></script>
+    <script>
+        $(document).ready(() => {
+            $('#name').attr("value", "");
+            $('#description').attr("value", "");
+        });
+    </script>
 </body>
 
 </html>

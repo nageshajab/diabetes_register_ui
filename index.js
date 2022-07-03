@@ -52,6 +52,7 @@ require('./routes/medicineRoutes')(app, session);
 require('./routes/userRoutes')(app, session);
 require('./routes/roleRoutes')(app, session);
 require('./routes/reportRoutes')(app, session);
+require('./routes/reminderRoutes')(app, session);
 
 //about page
 app.get('/', function (req, res) {

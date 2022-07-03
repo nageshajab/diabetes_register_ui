@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../../partials/head'); %>
+</head>
+
+<body class="container">
+    <header>
+        <%- include('../../partials/header'); %>
+    </header>
+    <main>
+        <h3>Add New Medicine</h3>
+        <% if( msg.length!=0) { %>
+            <div class="alert alert-danger " role="alert">
+                <%= msg %>
+            </div>
+            <% } %>
+                <%- include('../../partials/loader'); %>
+                    <form action="/medicine/insert" method="post">
+                        <div class="form-group p-2">
+                            <label class="pb-2" for="name">Name</label>
+                            <input type="text" class="form-control" name="name" placeholder="Enter Name">
+                        </div>
+                        <div class="form-group p-2">
+                            <label class="pb-2" for="content">Content</label>
+                            <input type="text" class="form-control" name="content" placeholder="Enter content">
+                        </div>
+                        <div class="p-2">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <a type="cancel" class="btn btn-primary" href="/medicine">Cancel</a>
+                        </div>
+                    </form>
+    </main>
+    <footer>
+        <%- include('../../partials/footer'); %>
+    </footer>
+
+</body>
+
+</html>

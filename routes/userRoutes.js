@@ -1,7 +1,8 @@
 var userService = require('../services/userService');
+var roleService=require('../services/roleService');
 var middleware = require('../middleware');
 const logger = require('../logger');
-const common=require('../common');
+const common = require('../common');
 const {
     urlencoded,
     json
@@ -65,13 +66,19 @@ module.exports = function (app, session) {
 
     app.get('/users/insert', middleware.validateUser, function (req, res) {
         var sessionVariables = common.getSessionVariables(req);
-        res.render('pages/users/insert', {
-            sessiontoken: sessionVariables.sessiontoken,
-            username: sessionVariables.username,
-            roles: sessionVariables.roles,
-            'msg': '',
-            'apiurl': process.env.BASE_URI
-        });
+        const getroles = async function getroles() {
+            var allroles = await roleService.list(req);
+            console.log('allroles are '+ JSON.stringify(allroles) );
+            res.render('pages/users/insert', {
+                sessiontoken: sessionVariables.sessiontoken,
+                username: sessionVariables.username,
+                roles: sessionVariables.roles,
+                allroles: JSON.stringify( allroles),
+                'msg': '',
+                'apiurl': process.env.BASE_URI
+            });
+        }
+        getroles();
     });
 
     app.post('/users/insert', middleware.validateUser, function (req, res) {
