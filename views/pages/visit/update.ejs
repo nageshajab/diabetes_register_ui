@@ -65,11 +65,12 @@
                         <div class="form-group p-2">
                             <div class="ui-widget">
                                 <label for="medicine">Medicines : </label>
-                                <input onfocus="searchMedicine()" id="medicine">
+                                <input id="medicine" placeholder="Enter medicine name">
+                                <button type="button" id="add" onclick="addmedicine()">Add</button>
                             </div>
                             <ul id="medicinelist">
                             </ul>
-                            <input class="d-none" value=<%=data.medicines %> name="medicines" class="" type="text"
+                            <input class="" value=<%=data.medicines %> name="medicines"  type="text"
                             id="selectedMedicines">
                         </div>
                         <div class="p-2">

@@ -13,7 +13,7 @@ exports.generateToken = async function generateToken(username1, password1) {
                 'Content-Type': 'application/json',
                 'Content-Length': data.length,
             },
-            timeout: 10000
+            timeout: 30000
         };
         logger.info(`uri is ${process.env.BASE_URI}/users/generateToken`);
         axios.post(`${process.env.BASE_URI}/users/generateToken`, data, config)

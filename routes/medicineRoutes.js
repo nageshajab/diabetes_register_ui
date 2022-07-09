@@ -73,7 +73,8 @@ module.exports = function (app, session) {
             sessiontoken: sessionVariables.sessiontoken,
             username: sessionVariables.username,
             roles: sessionVariables.roles,
-            'msg': ''
+            'msg': '',
+            'apiurl':process.env.BASE_URI
         });
     });
 

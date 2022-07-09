@@ -76,43 +76,81 @@ function readDataFromDataRow(data) {
 }
 
 function renderChart(data, labels) {
-    var ctx = document.getElementById("myChart").getContext('2d');
+    var ctx = document.getElementById("myChart");
+    Chart.register(ChartDataLabels);
+    Chart.defaults.set('plugins.datalabels', {
+        color: 'black'
+    });
     var myChart = new Chart(ctx, {
-        type: 'line',
+        type: 'bar',
+        plugins: [ChartDataLabels],
         data: {
             labels: labels,
             datasets: [{
                 label: 'This week',
                 data: data,
+                backgroundColor: "#FF8C00",
+                fill: true
             }]
         },
+        options: {
+            responsive: true,
+            plugins: {
+                datalabels: {
+                    anchor: 'end',
+                    align: 'end',
+                    labels: {
+                        value: {
+                            color: 'blue'
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: false
+                }
+            }
+        }
     });
 }
 
 function renderChart1(data1, data2, labels) {
-    console.log(labels);
-    console.log(data1);
-    console.log(data2);
-    var ctx = document.getElementById("myChart").getContext('2d');
+
+    var ctx = document.getElementById("myChart");
+    Chart.register(ChartDataLabels);
+    Chart.defaults.set('plugins.datalabels', {
+        color: 'black'
+    });
     var myChart = new Chart(ctx, {
         type: 'bar',
+        plugins: [ChartDataLabels],
         data: {
             labels: labels,
             datasets: [{
                 label: 'Pre',
                 backgroundColor: "red",
                 data: data1,
-                fill: false
+                fill: true
             }, {
                 label: 'Post',
                 backgroundColor: "green",
                 data: data2,
-                fill: false
+                fill: true
             }]
         },
         options: {
-            legend: {
-                display: false
+            responsive: true,
+            plugins: {
+                datalabels: {
+                    anchor: 'end',
+                    align: 'end',
+                    labels: {
+                        value: {
+                            color: 'blue'
+                        }
+                    }
+                }
             }
         }
     });
